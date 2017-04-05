@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -21,19 +22,19 @@ public class AuthentificationGUI extends JLabel {
 	JButton valider;
 
 	LinkedList<Utilisateur> utilisateurs;
-	
+
 	public AuthentificationGUI(Terminal terminal) {
 		this.terminal = terminal;
 
 		this.setSize(900, 900);
 		this.setLayout(null);
 
-		userLabel = new JLabel("User Name");
-		userLabel.setBounds(370, 20, 80, 25);
+		userLabel = new JLabel("Username");
+		userLabel.setBounds(370, 20, 400, 500);
 		this.add(userLabel);
 
 		userNameField = new JTextField(20);
-		userNameField.setBounds(470, 20, 160, 25);
+		userNameField.setBounds(470, 260, 160, 25);
 		this.add(userNameField);
 
 		userNameErrorLabel = new JLabel();
@@ -41,70 +42,73 @@ public class AuthentificationGUI extends JLabel {
 		userNameErrorLabel.setVisible(false);
 		this.add(userNameErrorLabel);
 
-		passWordLabel = new JLabel("Mot de passe");
-		passWordLabel.setBounds(370, 60, 80, 25);
+		passWordLabel = new JLabel("Password");
+		passWordLabel.setBounds(370, 60, 400, 510);
 		this.add(passWordLabel);
 
 		passWordField = new JTextField(20);
-		passWordField.setBounds(470, 60, 160, 25);
+		passWordField.setBounds(470, 310, 160, 25);
 		this.add(passWordField);
-		
-		groupLabel = new JLabel("Groupe Name");
-		groupLabel.setBounds(370, 100, 80, 25);
+
+		groupLabel = new JLabel("Status: ");
+		groupLabel.setBounds(700, 100, 80, 25);
 		this.add(groupLabel);
 
 		utilisateurs = new LinkedList<Utilisateur>();
-		utilisateurs.add(new Utilisateur("duykhanh", "duykhanh", "Etudiant"));
+		
 		utilisateurs.add(new Utilisateur("omar", "omar", "Enseignant"));
 		utilisateurs.add(new Utilisateur("zaid", "zaid", "Etudiant"));
-		utilisateurs.add(new Utilisateur("sabrina", "sabrina", "Client externe"));
 		
-		userGroupeField = new JLabel("Inconnu");
-		userGroupeField.setBounds(470, 100, 160, 25);
+
+		userGroupeField = new JLabel("");
+		userGroupeField.setBounds(750, 100, 80, 25);
 		this.add(userGroupeField);
 
-		JButton loginButton = new JButton("Valider");
-		loginButton.setBounds(470, 140, 80, 25);
+		JButton loginButton = new JButton("Validate");
+		loginButton.setBounds(470, 400, 80, 25);
 		this.add(loginButton);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				String userName = userNameField.getText();
 				String passWord = passWordField.getText();
-				
-				//Successful Authentication
-				if (authentification(userName, passWord)==true){
+
+				// Successful Authentication
+				if (authentification(userName, passWord) == true) {
 					String userGroupe = getUserGroupe(userName, passWord);
 					userNameErrorLabel.setVisible(true);
-					userNameErrorLabel.setText("Authentification reussie");
+					String Hello = "Hello " + userName + " !";
+					JOptionPane.showMessageDialog(terminal, Hello, "Access Granted", JOptionPane.INFORMATION_MESSAGE);
 					userGroupeField.setText(userGroupe);
 					terminal.setUserName(userName);
 					terminal.setUserGroupe(userGroupe);
 					terminal.setOnline(true);
 					try {
-						//Enable add functionality, borrow if user is a teacher or student
-						if(userGroupe.compareTo("Enseignant")==0 || userGroupe.compareTo("Etudiant")==0){
+						// Enable add functionality, borrow if user is a teacher
+						// or student
+						if (userGroupe.compareTo("Enseignant") == 0 || userGroupe.compareTo("Etudiant") == 0) {
 							terminal.getPageAllProducts().initialiser();
 							terminal.getPageAllProducts().activer();
 							terminal.getPageAllProducts().LoadProductsTable();
-	
+
 							terminal.getPageBorrower().initialiser();
 							terminal.getPageBorrower().activer();
 							terminal.getPageBorrower().loadTableBorrowers();
-	
+
 							terminal.getPageAddProduct().initialiser();
 							terminal.getPageAddProduct().activer();
 						}
-						//Enable purchase functionality for all user groups
+						// Enable purchase functionality for all user groups
 						terminal.getPageAchat().initialiser();
 						terminal.getPageAchat().activer();
-						terminal.getPageAchat().loadTableProductsBuyable();	
+						terminal.getPageAchat().loadTableProductsBuyable();
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
-				}else{//Failed Authentication => disable pages
+				} else {// Failed Authentication => disable pages
 					userGroupeField.setText("Inconnu");
 					userNameErrorLabel.setVisible(true);
-					userNameErrorLabel.setText("Authentification echouee");
+					userNameErrorLabel.setVisible(true);
+					JOptionPane.showMessageDialog(terminal, "Wrong credentials. Please try again");
 					terminal.setUserName("");
 					terminal.setUserGroupe("");
 					terminal.setOnline(false);
@@ -117,7 +121,7 @@ public class AuthentificationGUI extends JLabel {
 
 					terminal.getPageAddProduct().initialiser();
 					terminal.getPageAddProduct().desactiver();
-					
+
 					terminal.getPageAchat().initialiser();
 					terminal.getPageAchat().desactiver();
 				}
@@ -127,46 +131,46 @@ public class AuthentificationGUI extends JLabel {
 
 		this.setVisible(true);
 	}
-	
-	public boolean authentification(String userName, String passWord){
+
+	public boolean authentification(String userName, String passWord) {
 		int i;
-		for(i=0;i<utilisateurs.size();i++){
-			if(utilisateurs.get(i).identification(userName, passWord)==true)
+		for (i = 0; i < utilisateurs.size(); i++) {
+			if (utilisateurs.get(i).identification(userName, passWord) == true)
 				return true;
 		}
 		return false;
 	}
-	
-	public String getUserGroupe(String userName, String passWord){
+
+	public String getUserGroupe(String userName, String passWord) {
 		int i;
-		for(i=0;i<utilisateurs.size();i++){
-			if(utilisateurs.get(i).identification(userName, passWord)==true)
+		for (i = 0; i < utilisateurs.size(); i++) {
+			if (utilisateurs.get(i).identification(userName, passWord) == true)
 				return utilisateurs.get(i).getGroupe();
 		}
 		return null;
 	}
-	
-	//Internal class User
-	class Utilisateur{
+
+	// Internal class User
+	class Utilisateur {
 		String userName;
 		String passWord;
-		String userGroupe; //Teacher, Student, External client
-		
-		Utilisateur(String userName, String passWord, String userGroupe){
+		String userGroupe; // Teacher, Student, External client
+
+		Utilisateur(String userName, String passWord, String userGroupe) {
 			this.userName = userName;
 			this.passWord = passWord;
 			this.userGroupe = userGroupe;
 		}
-		
-		public String getGroupe(){
+
+		public String getGroupe() {
 			return this.userGroupe;
 		}
-		
-		boolean identification(String userName, String passWord){
-			if(userName == null || userName.length()==0 || this.userName.compareTo(userName)!=0){
+
+		boolean identification(String userName, String passWord) {
+			if (userName == null || userName.length() == 0 || this.userName.compareTo(userName) != 0) {
 				return false;
 			}
-			if(passWord == null || passWord.length()==0 || this.passWord.compareTo(passWord)!=0){
+			if (passWord == null || passWord.length() == 0 || this.passWord.compareTo(passWord) != 0) {
 				return false;
 			}
 			return true;

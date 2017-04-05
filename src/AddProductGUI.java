@@ -42,7 +42,7 @@ public class AddProductGUI extends JLabel {
 		typeLabel.setBounds(370, 60, 80, 25);
 		this.add(typeLabel);
 
-		String[] st = { "Voiture", "Moto", "Camion", "Autobus", "Scooter" };
+		String[] st = { "Livre", "Vetement", "Video Projecteur", "Cahier", "DVD interactif" };
 		typeField = new JComboBox<String>(st);
 		typeField.setBounds(470, 60, 160, 25);
 		this.add(typeField);
