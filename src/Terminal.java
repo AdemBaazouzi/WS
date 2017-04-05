@@ -26,7 +26,7 @@ public class Terminal extends JFrame {
 			UnsupportedLookAndFeelException, IOException {
 		UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
 		this.stockProducts = stockProducts;
-		this.setTitle("Dauphine products");
+		this.setTitle("Dauphine products 2017");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000, 1000);
 		this.setLocationRelativeTo(null);
