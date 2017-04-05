@@ -53,74 +53,74 @@ public class LoanGUI extends JLabel {
 
 		@SuppressWarnings("unused")
 		int i, k;
-		this.setSize(900, 900);
+		this.setSize(800, 500);
 
 		titleID = new JTextField();
 		titleID.setEditable(false);
 		titleID.setText("ID");
 		titleID.setHorizontalAlignment(JTextField.CENTER);
-		titleID.setPreferredSize(new Dimension(50, 20));
+		titleID.setPreferredSize(new Dimension(50, 25));
 		titleType = new JTextField();
 		titleType.setEditable(false);
 		titleType.setText("Type");
 		titleType.setHorizontalAlignment(JTextField.CENTER);
-		titleType.setPreferredSize(new Dimension(100, 20));
+		titleType.setPreferredSize(new Dimension(100, 25));
 		titleCommentaire = new JTextField();
 		titleCommentaire.setEditable(false);
-		titleCommentaire.setText("Commentaire");
+		titleCommentaire.setText("Comments");
 		titleCommentaire.setHorizontalAlignment(JTextField.CENTER);
-		titleCommentaire.setPreferredSize(new Dimension(350, 20));
+		titleCommentaire.setPreferredSize(new Dimension(350, 25));
 		titleNote = new JTextField();
 		titleNote.setEditable(false);
 		titleNote.setText("Note");
 		titleNote.setHorizontalAlignment(JTextField.CENTER);
-		titleNote.setPreferredSize(new Dimension(100, 20));
+		titleNote.setPreferredSize(new Dimension(100, 25));
 
 		ids = new JTextField[10];
 		for (i = 0; i < 10; i++) {
 			k = i + 1;
 			ids[i] = new JTextField();
 			ids[i].setEditable(false);
-			ids[i].setPreferredSize(new Dimension(50, 20));
+			ids[i].setPreferredSize(new Dimension(50, 25));
 		}
 		types = new JTextField[10];
 		for (i = 0; i < 10; i++) {
 			k = i + 1;
 			types[i] = new JTextField();
 			types[i].setEditable(false);
-			types[i].setPreferredSize(new Dimension(100, 20));
+			types[i].setPreferredSize(new Dimension(100, 25));
 		}
 		commentaires = new JTextField[10];
 		for (i = 0; i < 10; i++) {
 			k = i + 1;
 			commentaires[i] = new JTextField();
-			commentaires[i].setPreferredSize(new Dimension(350, 20));
+			commentaires[i].setPreferredSize(new Dimension(350, 25));
 		}
 		notes = new JComboBox[10];
 		Integer[] listeNotes = { 1, 2, 3, 4, 5 };
 		for (i = 0; i < 10; i++) {
 			k = i + 1;
 			notes[i] = new JComboBox<Integer>(listeNotes);
-			notes[i].setPreferredSize(new Dimension(100, 20));
+			notes[i].setPreferredSize(new Dimension(100, 25));
 		}
 		views = new JButton[10];
 		for (i = 0; i < 10; i++) {
 			k = i + 1;
 			views[i] = new JButton();
-			views[i].setText("Voir");
-			views[i].setPreferredSize(new Dimension(100, 20));
+			views[i].setText("See details");
+			views[i].setPreferredSize(new Dimension(100, 25));
 		}
 		retourners = new JButton[10];
 		for (i = 0; i < 10; i++) {
 			k = i + 1;
 			retourners[i] = new JButton();
-			retourners[i].setText("Retourner");
-			retourners[i].setPreferredSize(new Dimension(100, 20));
+			retourners[i].setText("Return");
+			retourners[i].setPreferredSize(new Dimension(100, 25));
 		}
 
 		vide1 = new JPanel();
 		vide1.setOpaque(false);
-		vide1.setPreferredSize(new Dimension(800, 20));
+		vide1.setPreferredSize(new Dimension(800, 25));
 
 		infoProduct = new JTextArea();
 		Border border = BorderFactory.createEmptyBorder(2, 2, 2, 2);
@@ -133,16 +133,16 @@ public class LoanGUI extends JLabel {
 
 		vide2 = new JPanel();
 		vide2.setOpaque(false);
-		vide2.setPreferredSize(new Dimension(800, 20));
+		vide2.setPreferredSize(new Dimension(800, 25));
 
 		vide3 = new JPanel();
 		vide3.setOpaque(false);
-		vide3.setPreferredSize(new Dimension(600, 20));
+		vide3.setPreferredSize(new Dimension(600, 25));
 
 		recharger = new JButton();
-		recharger.setText("Recharger");
+		recharger.setText("Reset");
 		recharger.setHorizontalTextPosition(JButton.CENTER);
-		recharger.setPreferredSize(new Dimension(200, 20));
+		recharger.setPreferredSize(new Dimension(200, 25));
 		recharger.addActionListener(new ButtonListener_RechargerEmprunts());
 
 		// The main container
@@ -312,32 +312,32 @@ public class LoanGUI extends JLabel {
 			String content = new String("");
 			try {
 				content = content + "ID: \t" + product.getId() + "\n\n";
-				content = content + "Informations generale:\n";
+				content = content + "General Information:\n";
 				content = content + "--------------------------------------\n";
 				content = content + "TYPE: \t" + product.getType() + "\n";
 				content = content + "DESCRIPTION: \t" + product.getDescription() + "\n";
-				content = content + "DATE AJOUT: \t" + product.getDateOfAdd() + " par " + product.getAdder()
+				content = content + "Add date: \t" + product.getDateOfAdd() + " from " + product.getAdder()
 						+ "\n";
-				if (product.getState().compareTo("Emprunte") == 0)
-					content = content + "ETAT: \t" + product.getState() + " par " + product.getBorrower() + "\n";
+				if (product.getState().compareTo("Borrowed") == 0)
+					content = content + "STATUS: \t" + product.getState() + " from " + product.getBorrower() + "\n";
 				else
-					content = content + "ETAT: \t" + product.getState() + "\n\n";
-				content = content + "Informations emprunts:\n";
+					content = content + "STATUS: \t" + product.getState() + "\n\n";
+				content = content + "Borrow Information:\n";
 				content = content + "--------------------------------------\n";
-				content = content + "NOMBRE EMPRUNT: \t" + product.getNbrEmprunts() + "\n";
-				content = content + "NOTE MOYENNE: \t" + product.getAvgGrade() + "\n";
-				content = content + "COMMENTAIRES:\t";
+				content = content + "Borrow number: \t" + product.getNbrEmprunts() + "\n";
+				content = content + "Average Note: \t" + product.getAvgGrade() + "\n";
+				content = content + "COMMENTS:\t";
 				LinkedList<String> listCommentaires = product.getReviews();
 				if (listCommentaires.size() == 0)
-					content = content + "Pas de commentaire\n";
+					content = content + "No comments\n";
 				else {
 					content = content + "\n";
 					int i;
 					for (i = 0; i < listCommentaires.size(); i++)
 						content = content + " - " + listCommentaires.get(i) + "\n";
 				}
-				content = content + "NOMBRE D'ENSEIGNANTS EN ATTENTE: \t" + product.nbrWaitingEnseignant() + "\n";
-				content = content + "NOMBRE D'ETUDIANTS EN ATTENTE: \t" + product.nbrWaitingEtudiant() + "\n";
+				content = content + "Number of Professor waiting: \t" + product.nbrWaitingEnseignant() + "\n";
+				content = content + "Number of Student Professor: \t" + product.nbrWaitingEtudiant() + "\n";
 
 				infoProduct.setText(content);
 			} catch (RemoteException e) {

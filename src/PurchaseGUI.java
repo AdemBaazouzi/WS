@@ -27,7 +27,7 @@ public class PurchaseGUI extends JLabel {
 	LinkedList<IProduct> listProductsBuyable;
 	double amountEuro;
 	String devise;
-	
+
 	JLabel labelRechercherID;
 	JLabel labelRechercherType;
 	JLabel labelRechercherEtat;
@@ -35,7 +35,7 @@ public class PurchaseGUI extends JLabel {
 	JTextField rechercherType;
 	JComboBox<String> rechercherEtat;
 	JPanel vide0;
-	
+
 	JTextField titleID;
 	JTextField titleType;
 	JTextField titleDes;
@@ -54,7 +54,7 @@ public class PurchaseGUI extends JLabel {
 	JLabel titleTotal;
 	JTextField amountTotal;
 	JButton acheter;
-	
+
 	JPanel vide1;
 
 	JTextArea infoProduct;
@@ -71,62 +71,62 @@ public class PurchaseGUI extends JLabel {
 	public PurchaseGUI(Terminal terminal, IStock stockProducts) throws RemoteException {
 		this.terminal = terminal;
 		this.stockProducts = stockProducts;
-		this.amountEuro = 0; //Total amount of the basket
-		this.devise = " Euro";
-		this.setSize(900, 900);
+		this.amountEuro = 0; // Total amount of the basket
+		this.devise = " Eur";
+		this.setSize(800, 500);
 
 		// Defining interface elements
 		int i, k;
-		
-		//Search area
+
+		// Search area
 		labelRechercherID = new JLabel("ID: ");
-		labelRechercherID.setPreferredSize(new Dimension(50,20));
+		labelRechercherID.setPreferredSize(new Dimension(50, 25));
 		labelRechercherID.setHorizontalAlignment(SwingConstants.RIGHT);
 		rechercherID = new JTextField();
 		rechercherID.setPreferredSize(new Dimension(100, 20));
-		
+
 		labelRechercherType = new JLabel("Type: ");
-		labelRechercherType.setPreferredSize(new Dimension(100,20));
+		labelRechercherType.setPreferredSize(new Dimension(100, 25));
 		labelRechercherType.setHorizontalAlignment(SwingConstants.RIGHT);
 		rechercherType = new JTextField();
-		rechercherType.setPreferredSize(new Dimension(100,20));
-		
-		labelRechercherEtat = new JLabel("Etat: ");
-		labelRechercherEtat.setPreferredSize(new Dimension(100,20));
+		rechercherType.setPreferredSize(new Dimension(100, 25));
+
+		labelRechercherEtat = new JLabel("Status: ");
+		labelRechercherEtat.setPreferredSize(new Dimension(100, 25));
 		labelRechercherEtat.setHorizontalAlignment(SwingConstants.RIGHT);
-		String[] listEtats = {"","Disponible","Emprunte"};
+		String[] listEtats = { "", "Available", "Borrowed" };
 		rechercherEtat = new JComboBox<String>(listEtats);
-		rechercherEtat.setPreferredSize(new Dimension(100,20));
-		
+		rechercherEtat.setPreferredSize(new Dimension(100, 25));
+
 		vide0 = new JPanel();
 		vide0.setOpaque(false);
 		vide0.setPreferredSize(new Dimension(800, 20));
-		
-		//Table area
+
+		// Table area
 		titleID = new JTextField();
 		titleID.setEditable(false);
 		titleID.setText("ID");
 		titleID.setHorizontalAlignment(JTextField.CENTER);
-		titleID.setPreferredSize(new Dimension(50, 20));
+		titleID.setPreferredSize(new Dimension(50, 25));
 		titleType = new JTextField();
 		titleType.setEditable(false);
 		titleType.setText("Type");
 		titleType.setHorizontalAlignment(JTextField.CENTER);
-		titleType.setPreferredSize(new Dimension(100, 20));
+		titleType.setPreferredSize(new Dimension(100, 25));
 		titleDes = new JTextField();
 		titleDes.setEditable(false);
 		titleDes.setText("Description");
 		titleDes.setHorizontalAlignment(JTextField.CENTER);
-		titleDes.setPreferredSize(new Dimension(350, 20));
-		String[] devises = {"Prix EUR", "Prix USD"};
+		titleDes.setPreferredSize(new Dimension(350, 25));
+		String[] devises = { "Price EUR", "Price USD" };
 		titlePrix = new JComboBox<String>(devises);
 		titlePrix.setEditable(false);
 		titlePrix.setPreferredSize(new Dimension(100, 20));
 		titleEtat = new JTextField();
 		titleEtat.setEditable(false);
-		titleEtat.setText("Etat");
+		titleEtat.setText("Status");
 		titleEtat.setHorizontalAlignment(JTextField.CENTER);
-		titleEtat.setPreferredSize(new Dimension(100, 20));
+		titleEtat.setPreferredSize(new Dimension(100, 25));
 
 		ids = new JTextField[15];
 		for (i = 0; i < 15; i++) {
@@ -167,7 +167,7 @@ public class PurchaseGUI extends JLabel {
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			views[i] = new JButton();
-			views[i].setText("Vr");
+			views[i].setText("Details");
 			views[i].setPreferredSize(new Dimension(50, 20));
 		}
 		acheters = new JCheckBox[15];
@@ -177,27 +177,27 @@ public class PurchaseGUI extends JLabel {
 			acheters[i].setPreferredSize(new Dimension(50, 20));
 			acheters[i].setHorizontalAlignment(CENTER);
 		}
-		
-		//Total amount area
+
+		// Total amount area
 		vide2 = new JPanel();
 		vide2.setOpaque(false);
-		vide2.setPreferredSize(new Dimension(800, 20));		
+		vide2.setPreferredSize(new Dimension(800, 20));
 		vide3 = new JPanel();
 		vide3.setOpaque(false);
 		vide3.setPreferredSize(new Dimension(500, 20));
 		titleTotal = new JLabel("Total: ");
-		titleTotal.setPreferredSize(new Dimension(50,20));
+		titleTotal.setPreferredSize(new Dimension(50, 20));
 		titleTotal.setHorizontalAlignment(SwingConstants.LEFT);
 		amountTotal = new JTextField();
 		amountTotal.setEditable(false);
 		amountTotal.setPreferredSize(new Dimension(100, 20));
 		acheter = new JButton();
-		acheter.setText("Acheter");
+		acheter.setText("Buy");
 		acheter.setHorizontalTextPosition(JButton.CENTER);
 		acheter.setPreferredSize(new Dimension(200, 20));
 		acheter.addActionListener(new ButtonListener_Acheter());
-		
-		//Text area
+
+		// Text area
 		vide1 = new JPanel();
 		vide1.setOpaque(false);
 		vide1.setPreferredSize(new Dimension(800, 20));
@@ -219,7 +219,7 @@ public class PurchaseGUI extends JLabel {
 		vide5.setPreferredSize(new Dimension(600, 20));
 
 		recharger = new JButton();
-		recharger.setText("Recharger");
+		recharger.setText("Reset");
 		recharger.setHorizontalTextPosition(JButton.CENTER);
 		recharger.setPreferredSize(new Dimension(200, 20));
 		recharger.addActionListener(new ButtonListener_Recharger());
@@ -228,7 +228,7 @@ public class PurchaseGUI extends JLabel {
 		this.setPreferredSize(new Dimension(800, 600));
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-		
+
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
@@ -391,8 +391,8 @@ public class PurchaseGUI extends JLabel {
 		this.setVisible(true);
 	}
 
-	//Activate the page
-	public void activer(){
+	// Activate the page
+	public void activer() {
 		acheter.setEnabled(true);
 		recharger.setEnabled(true);
 		rechercherID.setEnabled(true);
@@ -400,9 +400,9 @@ public class PurchaseGUI extends JLabel {
 		rechercherEtat.setEnabled(true);
 		titlePrix.setEnabled(true);
 	}
-	
-	//Deactivate the page
-	public void desactiver(){
+
+	// Deactivate the page
+	public void desactiver() {
 		acheter.setEnabled(false);
 		recharger.setEnabled(false);
 		rechercherID.setEnabled(false);
@@ -410,7 +410,7 @@ public class PurchaseGUI extends JLabel {
 		rechercherEtat.setEnabled(false);
 		titlePrix.setEnabled(false);
 	}
-	
+
 	public void initialiser() {
 		int i;
 		for (i = 0; i < 15; i++) {
@@ -434,10 +434,11 @@ public class PurchaseGUI extends JLabel {
 		titlePrix.setSelectedIndex(0);
 		amountTotal.setText(Double.toString(0));
 	}
-	
-	//Load the data
+
+	// Load the data
 	public void loadTableProductsBuyable() throws RemoteException {
-		listProductsBuyable = stockProducts.getProductsBuyable(rechercherID.getText(),rechercherType.getText(),(String)rechercherEtat.getSelectedItem());
+		listProductsBuyable = stockProducts.getProductsBuyable(rechercherID.getText(), rechercherType.getText(),
+				(String) rechercherEtat.getSelectedItem());
 		IProduct product;
 		int i;
 		for (i = 0; i < listProductsBuyable.size(); i++) {
@@ -445,12 +446,12 @@ public class PurchaseGUI extends JLabel {
 			ids[i].setText(product.getId());
 			types[i].setText(product.getType());
 			descriptions[i].setText(product.getDescription());
-			prixs[i].setText(Double.toString(product.getPrixEuro())+" Euro");
+			prixs[i].setText(Double.toString(product.getPrixEuro()) + " Eur");
 			String etat = product.getState();
 			etats[i].setText(etat);
-			if (etat.compareTo("Disponible") == 0)
+			if (etat.compareTo("Available") == 0)
 				etats[i].setBackground(Color.cyan);
-			else if (etat.compareTo("Emprunte") == 0)
+			else if (etat.compareTo("Borrowed") == 0)
 				etats[i].setBackground(Color.green);
 			else
 				etats[i].setBackground(Color.red);
@@ -461,7 +462,7 @@ public class PurchaseGUI extends JLabel {
 		}
 	}
 
-	//View Button
+	// View Button
 	class ButtonListener_Voir implements ActionListener {
 
 		private IProduct product;
@@ -475,33 +476,32 @@ public class PurchaseGUI extends JLabel {
 			String content = new String("");
 			try {
 				content = content + "ID:  " + product.getId() + "\n\n";
-				content = content + "Informations generale:\n";
+				content = content + "General Information:\n";
 				content = content + "--------------------------------------\n";
 				content = content + "TYPE:  " + product.getType() + "\n";
 				content = content + "DESCRIPTION:  " + product.getDescription() + "\n";
-				content = content + "PRIX:  " + product.getPrixEuro() + devise +"\n";
-				content = content + "DATE AJOUT:  " + product.getDateOfAdd() + " par " + product.getAdder()
-						+ "\n";
-				if (product.getState().compareTo("Emprunte") == 0)
-					content = content + "ETAT:  " + product.getState() + " par " + product.getBorrower() + "\n";
+				content = content + "Price:  " + product.getPrixEuro() + devise + "\n";
+				content = content + "Add date:  " + product.getDateOfAdd() + " par " + product.getAdder() + "\n";
+				if (product.getState().compareTo("Borrowed") == 0)
+					content = content + "Status:  " + product.getState() + " from " + product.getBorrower() + "\n";
 				else
-					content = content + "ETAT:  " + product.getState() + "\n\n";
-				content = content + "Informations emprunts:\n";
+					content = content + "Status:  " + product.getState() + "\n\n";
+				content = content + "Borrow Informations:\n";
 				content = content + "--------------------------------------\n";
-				content = content + "NOMBRE EMPRUNT:  " + product.getNbrEmprunts() + "\n";
-				content = content + "NOTE MOYENNE:  " + product.getAvgGrade() + "\n";
-				content = content + "COMMENTAIRES:  ";
+				content = content + "Borrow number:  " + product.getNbrEmprunts() + "\n";
+				content = content + "Average Note:  " + product.getAvgGrade() + "\n";
+				content = content + "COMMENTS:  ";
 				LinkedList<String> listCommentaires = product.getReviews();
 				if (listCommentaires.size() == 0)
-					content = content + "Pas de commentaire\n";
+					content = content + "No COMMENTS\n";
 				else {
 					content = content + "\n";
 					int i;
 					for (i = 0; i < listCommentaires.size(); i++)
 						content = content + " - " + listCommentaires.get(i) + "\n";
 				}
-				content = content + "NOMBRE D'ENSEIGNANTS EN ATTENTE:  " + product.nbrWaitingEnseignant() + "\n";
-				content = content + "NOMBRE D'ETUDIANTS EN ATTENTE:  " + product.nbrWaitingEtudiant() + "\n";
+				content = content + "Number of Professor waiting:  " + product.nbrWaitingEnseignant() + "\n";
+				content = content + "Number of Student waiting:  " + product.nbrWaitingEtudiant() + "\n";
 
 				infoProduct.setText(content);
 			} catch (RemoteException e) {
@@ -511,23 +511,25 @@ public class PurchaseGUI extends JLabel {
 
 	}
 
-	//Check / Uncheck to add / remove product from basket
+	// Check / Uncheck to add / remove product from basket
 	class ButtonListener_Check implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			infoProduct.setText("");
 			try {
-				//Recalculate total amount
+				// Recalculate total amount
 				amountEuro = 0;
 				int i;
-				for(i=0;i<listProductsBuyable.size();i++){
-					if(acheters[i].isSelected()){
+				for (i = 0; i < listProductsBuyable.size(); i++) {
+					if (acheters[i].isSelected()) {
 						amountEuro = amountEuro + listProductsBuyable.get(i).getPrixEuro();
 					}
 				}
-				amountTotal.setText(Double.toString(amountEuro)+devise);
-				if(amountEuro==0) acheter.setEnabled(false);
-				else acheter.setEnabled(true);
+				amountTotal.setText(Double.toString(amountEuro) + devise);
+				if (amountEuro == 0)
+					acheter.setEnabled(false);
+				else
+					acheter.setEnabled(true);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -535,26 +537,26 @@ public class PurchaseGUI extends JLabel {
 
 	}
 
-	//Validate the purchase
+	// Validate the purchase
 	class ButtonListener_Acheter implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			infoProduct.setText("");
 			String content = new String("MESSAGE:  ");
 			try {
-				//List of products from the basket
+				// List of products from the basket
 				LinkedList<IProduct> listProductsBuyable = new LinkedList<IProduct>();
 				int i;
-				for(i=0;i<listProductsBuyable.size();i++){
-					if(acheters[i].isSelected()){
+				for (i = 0; i < listProductsBuyable.size(); i++) {
+					if (acheters[i].isSelected()) {
 						listProductsBuyable.add(listProductsBuyable.get(i));
 					}
 				}
-				//Buy
+				// Buy
 				String message = stockProducts.sellProducts(listProductsBuyable, amountEuro, devise);
 				content = content + message;
 				infoProduct.setText(content);
-				//Load the pages
+				// Load the pages
 				initialiser();
 				loadTableProductsBuyable();
 				terminal.getPageBorrower().initialiser();
@@ -567,8 +569,8 @@ public class PurchaseGUI extends JLabel {
 		}
 
 	}
-	
-	//Recharge button
+
+	// Recharge button
 	class ButtonListener_Recharger implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			try {

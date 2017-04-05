@@ -26,19 +26,19 @@ public class AuthentificationGUI extends JLabel {
 	public AuthentificationGUI(Terminal terminal) {
 		this.terminal = terminal;
 
-		this.setSize(900, 900);
+		this.setSize(800, 500);
 		this.setLayout(null);
 
 		userLabel = new JLabel("Username");
-		userLabel.setBounds(370, 20, 400, 500);
+		userLabel.setBounds(370, 25, 400, 500);
 		this.add(userLabel);
 
-		userNameField = new JTextField(20);
+		userNameField = new JTextField(25);
 		userNameField.setBounds(470, 260, 160, 25);
 		this.add(userNameField);
 
 		userNameErrorLabel = new JLabel();
-		userNameErrorLabel.setBounds(650, 20, 160, 25);
+		userNameErrorLabel.setBounds(650, 25, 160, 25);
 		userNameErrorLabel.setVisible(false);
 		this.add(userNameErrorLabel);
 
@@ -46,7 +46,7 @@ public class AuthentificationGUI extends JLabel {
 		passWordLabel.setBounds(370, 60, 400, 510);
 		this.add(passWordLabel);
 
-		passWordField = new JTextField(20);
+		passWordField = new JTextField(25);
 		passWordField.setBounds(470, 310, 160, 25);
 		this.add(passWordField);
 
@@ -56,8 +56,8 @@ public class AuthentificationGUI extends JLabel {
 
 		utilisateurs = new LinkedList<Utilisateur>();
 		
-		utilisateurs.add(new Utilisateur("omar", "omar", "Enseignant"));
-		utilisateurs.add(new Utilisateur("zaid", "zaid", "Etudiant"));
+		utilisateurs.add(new Utilisateur("omar", "omar", "Professor"));
+		utilisateurs.add(new Utilisateur("zaid", "zaid", "Student"));
 		
 
 		userGroupeField = new JLabel("");
@@ -83,9 +83,9 @@ public class AuthentificationGUI extends JLabel {
 					terminal.setUserGroupe(userGroupe);
 					terminal.setOnline(true);
 					try {
-						// Enable add functionality, borrow if user is a teacher
+						// Enable add functionality, borrow if user is a Professor
 						// or student
-						if (userGroupe.compareTo("Enseignant") == 0 || userGroupe.compareTo("Etudiant") == 0) {
+						if (userGroupe.compareTo("Professor") == 0 || userGroupe.compareTo("Student") == 0) {
 							terminal.getPageAllProducts().initialiser();
 							terminal.getPageAllProducts().activer();
 							terminal.getPageAllProducts().LoadProductsTable();
@@ -105,7 +105,7 @@ public class AuthentificationGUI extends JLabel {
 						e.printStackTrace();
 					}
 				} else {// Failed Authentication => disable pages
-					userGroupeField.setText("Inconnu");
+					userGroupeField.setText("<Not loggin>");
 					userNameErrorLabel.setVisible(true);
 					userNameErrorLabel.setVisible(true);
 					JOptionPane.showMessageDialog(terminal, "Wrong credentials. Please try again");
@@ -154,7 +154,7 @@ public class AuthentificationGUI extends JLabel {
 	class Utilisateur {
 		String userName;
 		String passWord;
-		String userGroupe; // Teacher, Student, External client
+		String userGroupe; // Professor, Student, External client
 
 		Utilisateur(String userName, String passWord, String userGroupe) {
 			this.userName = userName;

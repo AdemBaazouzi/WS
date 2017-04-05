@@ -27,15 +27,15 @@ public class AddProductGUI extends JLabel {
 	public AddProductGUI(Terminal terminal, IStock stockProducts) {
 		this.terminal = terminal;
 		this.stockProducts = stockProducts;
-		this.setSize(900, 900);
+		this.setSize(800, 500);
 		this.setLayout(null);
 
-		userLabel = new JLabel("Utilisateur");
-		userLabel.setBounds(370, 20, 80, 25);
+		userLabel = new JLabel("User");
+		userLabel.setBounds(370, 25, 80, 25);
 		this.add(userLabel);
 
 		userInfoLabel = new JLabel();
-		userInfoLabel.setBounds(470, 20, 160, 25);
+		userInfoLabel.setBounds(470, 25, 160, 25);
 		this.add(userInfoLabel);
 
 		typeLabel = new JLabel("Type");
@@ -55,15 +55,15 @@ public class AddProductGUI extends JLabel {
 		descField.setBounds(470, 100, 200, 100);
 		this.add(descField);
 		
-		prixLabel = new JLabel("Prix en Euro");
+		prixLabel = new JLabel("Price in Eur");
 		prixLabel.setBounds(370, 220, 80, 25);
 		this.add(prixLabel);
 
-		prixField = new JTextField(20);
+		prixField = new JTextField(25);
 		prixField.setBounds(470, 220, 160, 25);
 		this.add(prixField);
 
-		addButton = new JButton("Ajouter");
+		addButton = new JButton("Add");
 		addButton.setBounds(470, 260, 80, 25);
 		this.add(addButton);
 		addButton.addActionListener(new ActionListener() {
@@ -92,7 +92,7 @@ public class AddProductGUI extends JLabel {
 
 	//Deactivate the page
 	public void desactiver() {
-		userInfoLabel.setText("Non identifie");
+		userInfoLabel.setText("Non identifiable");
 		addButton.setEnabled(false);
 		descField.setEnabled(false);
 		prixField.setEnabled(false);

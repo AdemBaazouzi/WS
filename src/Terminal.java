@@ -12,7 +12,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 @SuppressWarnings("serial")
 public class Terminal extends JFrame {
 	private String userName;
-	private String userGroupe = "Etudiant";
+	private String userGroupe = "Student";
 	private boolean online;
 	private IStock stockProducts;
 	private JTabbedPane onglet;
@@ -28,7 +28,7 @@ public class Terminal extends JFrame {
 		this.stockProducts = stockProducts;
 		this.setTitle("Dauphine products 2017");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1000, 1000);
+		this.setSize(1000, 800);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		String imagePath = "res/Image.png";

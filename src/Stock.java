@@ -17,7 +17,7 @@ public class Stock extends UnicastRemoteObject implements IStock {
 		return this.nbrProducts;
 	}
 
-	//The list of products, the parameters are the search criteria
+	// The list of products, the parameters are the search criteria
 	public LinkedList<IProduct> getProducts(String id, String type, String etat) throws RemoteException {
 		LinkedList<IProduct> list = new LinkedList<IProduct>();
 		int i;
@@ -26,21 +26,21 @@ public class Stock extends UnicastRemoteObject implements IStock {
 		for (i = 0; i < listProducts.size(); i++) {
 
 			product = listProducts.get(i);
-			//not yet sold
+			// not yet sold
 			if (product.getSoldProd()) {
 				recherche = false;
 			}
-			//if search is by Id
+			// if search is by Id
 			if (id != null && id.length() > 0) {
 				if (product.getId().compareTo(id) != 0)
 					recherche = false;
 			}
-			//if search is by Type
+			// if search is by Type
 			if (type != null && type.length() > 0) {
 				if (product.getType().compareTo(type) != 0)
 					recherche = false;
 			}
-			//if search is by State
+			// if search is by State
 			if (etat != null && etat.length() > 0) {
 				if (product.getState().compareTo(etat) != 0)
 					recherche = false;
@@ -54,7 +54,7 @@ public class Stock extends UnicastRemoteObject implements IStock {
 		return list;
 	}
 
-	//The list of purchasable products, the parameters are the search criteria
+	// The list of purchasable products, the parameters are the search criteria
 	public LinkedList<IProduct> getProductsBuyable(String id, String type, String etat) throws RemoteException {
 		LinkedList<IProduct> list = new LinkedList<IProduct>();
 		int i;
@@ -89,16 +89,16 @@ public class Stock extends UnicastRemoteObject implements IStock {
 		return list;
 	}
 
-	//Add a vehicle to the database
+	// Add a Product to the database
 	public void addProduct(String type, String description, double prixEuro, String adder, Date date)
 			throws RemoteException {
 		nbrProducts++;
-		String id = "Veh" + nbrProducts;
+		String id = "Prod" + nbrProducts;
 		Product product = new Product(id, type, description, prixEuro, date, adder);
 		this.listProducts.add(product);
 	}
 
-	//Vehicles being occupied by 'userName'
+	// Product being occupied by 'userName'
 	public LinkedList<IProduct> getProductsBorrowedByUser(String userName) throws RemoteException {
 		LinkedList<IProduct> listProductsBorrowedByUser = new LinkedList<IProduct>();
 
@@ -114,21 +114,24 @@ public class Stock extends UnicastRemoteObject implements IStock {
 		return listProductsBorrowedByUser;
 	}
 
-	//Sell products from a customer's basket
+	// Sell products from a customer's basket
 	public String sellProducts(LinkedList<IProduct> panier, double amount, String devise) throws RemoteException {
 		int i;
-		//Check whether all products are still purchasable
+		// Check whether all products are still purchasable
 		for (i = 0; i < panier.size(); i++) {
 			IProduct product = panier.get(i);
-			if (product.getSoldProd() || product.getState().compareTo("Disponible") != 0
+			if (product.getSoldProd() || product.getState().compareTo("Available") != 0
 					|| product.nbrWaitingEnseignant() > 0 || product.nbrWaitingEtudiant() > 0) {
-				return "Achat echoue, un ou plusieurs vehicules choisis ne sont plus achetable";
+				return "Purchase failed, some products can not be purchased";
+
 			}
 		}
 		for (i = 0; i < panier.size(); i++) {
 			IProduct product = panier.get(i);
 			product.sell();
+			
 		}
-		return "Achat reussi, le montant total est "+amount+devise;
+		
+		return "Purchase success, total price is " + amount + devise;
 	}
 }

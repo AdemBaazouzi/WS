@@ -60,104 +60,104 @@ public class AllProductsGUI extends JLabel {
 	public AllProductsGUI(Terminal terminal, IStock stockProducts) throws RemoteException {
 		this.terminal = terminal;
 		this.stockProducts = stockProducts;
-		this.setSize(900, 900);
+		this.setSize(800, 500);
 
 		// Defining interface elements
 		int i, k;
 		
 		//Search area
 		labelRechercherID = new JLabel("ID: ");
-		labelRechercherID.setPreferredSize(new Dimension(50,20));
+		labelRechercherID.setPreferredSize(new Dimension(50,25));
 		labelRechercherID.setHorizontalAlignment(SwingConstants.RIGHT);
 		rechercherID = new JTextField();
-		rechercherID.setPreferredSize(new Dimension(100, 20));
+		rechercherID.setPreferredSize(new Dimension(100, 25));
 		
 		labelRechercherType = new JLabel("Type: ");
-		labelRechercherType.setPreferredSize(new Dimension(100,20));
+		labelRechercherType.setPreferredSize(new Dimension(100,25));
 		labelRechercherType.setHorizontalAlignment(SwingConstants.RIGHT);
 		rechercherType = new JTextField();
-		rechercherType.setPreferredSize(new Dimension(100,20));
+		rechercherType.setPreferredSize(new Dimension(100,25));
 		
-		labelRechercherState = new JLabel("Etat: ");
-		labelRechercherState.setPreferredSize(new Dimension(100,20));
+		labelRechercherState = new JLabel("Status: ");
+		labelRechercherState.setPreferredSize(new Dimension(100,25));
 		labelRechercherState.setHorizontalAlignment(SwingConstants.RIGHT);
-		String[] listEtats = {"","Disponible","Emprunte"};
+		String[] listEtats = {"","Avaible","Borrowed"};
 		rechercherState = new JComboBox<String>(listEtats);
-		rechercherState.setPreferredSize(new Dimension(100,20));
+		rechercherState.setPreferredSize(new Dimension(100,25));
 		
 		vide0 = new JPanel();
 		vide0.setOpaque(false);
-		vide0.setPreferredSize(new Dimension(800, 20));
+		vide0.setPreferredSize(new Dimension(800, 25));
 		
 		//Table area
 		titleID = new JTextField();
 		titleID.setEditable(false);
 		titleID.setText("ID");
 		titleID.setHorizontalAlignment(JTextField.CENTER);
-		titleID.setPreferredSize(new Dimension(50, 20));
+		titleID.setPreferredSize(new Dimension(50, 25));
 		titleType = new JTextField();
 		titleType.setEditable(false);
 		titleType.setText("Type");
 		titleType.setHorizontalAlignment(JTextField.CENTER);
-		titleType.setPreferredSize(new Dimension(100, 20));
+		titleType.setPreferredSize(new Dimension(100, 25));
 		titleDes = new JTextField();
 		titleDes.setEditable(false);
 		titleDes.setText("Description");
 		titleDes.setHorizontalAlignment(JTextField.CENTER);
-		titleDes.setPreferredSize(new Dimension(350, 20));
+		titleDes.setPreferredSize(new Dimension(350, 25));
 		titleState = new JTextField();
 		titleState.setEditable(false);
-		titleState.setText("Etat");
+		titleState.setText("Status");
 		titleState.setHorizontalAlignment(JTextField.CENTER);
-		titleState.setPreferredSize(new Dimension(100, 20));
+		titleState.setPreferredSize(new Dimension(100, 25));
 
 		ids = new JTextField[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			ids[i] = new JTextField();
 			ids[i].setEditable(false);
-			ids[i].setPreferredSize(new Dimension(50, 20));
+			ids[i].setPreferredSize(new Dimension(50, 25));
 		}
 		types = new JTextField[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			types[i] = new JTextField();
 			types[i].setEditable(false);
-			types[i].setPreferredSize(new Dimension(100, 20));
+			types[i].setPreferredSize(new Dimension(100, 25));
 		}
 		descriptions = new JTextField[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			descriptions[i] = new JTextField();
 			descriptions[i].setEditable(false);
-			descriptions[i].setPreferredSize(new Dimension(350, 20));
+			descriptions[i].setPreferredSize(new Dimension(350, 25));
 		}
 		states = new JTextField[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			states[i] = new JTextField();
 			states[i].setEditable(false);
-			states[i].setPreferredSize(new Dimension(100, 20));
+			states[i].setPreferredSize(new Dimension(100, 25));
 		}
 		views = new JButton[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			views[i] = new JButton();
-			views[i].setText("Voir");
-			views[i].setPreferredSize(new Dimension(100, 20));
+			views[i].setText("See details");
+			views[i].setPreferredSize(new Dimension(100, 25));
 		}
 		emprunters = new JButton[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			emprunters[i] = new JButton();
-			emprunters[i].setText("Emprunter");
-			emprunters[i].setPreferredSize(new Dimension(100, 20));
+			emprunters[i].setText("Borrow");
+			emprunters[i].setPreferredSize(new Dimension(100, 25));
 		}
 		
 		//text area
 		vide1 = new JPanel();
 		vide1.setOpaque(false);
-		vide1.setPreferredSize(new Dimension(800, 20));
+		vide1.setPreferredSize(new Dimension(500, 25));
 
 		infoProducts = new JTextArea();
 		Border border = BorderFactory.createEmptyBorder(2, 2, 2, 2);
@@ -170,15 +170,15 @@ public class AllProductsGUI extends JLabel {
 
 		vide2 = new JPanel();
 		vide2.setOpaque(false);
-		vide2.setPreferredSize(new Dimension(800, 20));
+		vide2.setPreferredSize(new Dimension(800, 25));
 		vide3 = new JPanel();
 		vide3.setOpaque(false);
-		vide3.setPreferredSize(new Dimension(600, 20));
+		vide3.setPreferredSize(new Dimension(600, 25));
 
 		recharger = new JButton();
-		recharger.setText("Recharger");
+		recharger.setText("Reset");
 		recharger.setHorizontalTextPosition(JButton.CENTER);
-		recharger.setPreferredSize(new Dimension(200, 20));
+		recharger.setPreferredSize(new Dimension(200, 25));
 		recharger.addActionListener(new ButtonListener_Recharger());
 
 		//Organize interface elements
@@ -292,7 +292,7 @@ public class AllProductsGUI extends JLabel {
 		// ---------------------------------------------
 		gbc.gridx = 0;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		gbc.gridy = 20;
+		gbc.gridy = 25;
 		gbc.gridheight = 10;
 		this.add(scroll, gbc);
 		// ---------------------------------------------
@@ -361,11 +361,11 @@ public class AllProductsGUI extends JLabel {
 			ids[i].setText(product.getId());
 			types[i].setText(product.getType());
 			descriptions[i].setText(product.getDescription());
-			String etat = product.getState();
-			states[i].setText(etat);
-			if (etat.compareTo("Disponible") == 0)
+			String Status = product.getState();
+			states[i].setText(Status);
+			if (Status.compareTo("Available") == 0)
 				states[i].setBackground(Color.cyan);
-			else if (etat.compareTo("Emprunte") == 0)
+			else if (Status.compareTo("Borrowed") == 0)
 				states[i].setBackground(Color.green);
 			else
 				states[i].setBackground(Color.red);
@@ -390,32 +390,32 @@ public class AllProductsGUI extends JLabel {
 			String content = new String("");
 			try {
 				content = content + "ID:  " + product.getId() + "\n\n";
-				content = content + "Informations generale:\n";
+				content = content + "General Information:\n";
 				content = content + "--------------------------------------\n";
 				content = content + "TYPE:  " + product.getType() + "\n";
 				content = content + "DESCRIPTION:  " + product.getDescription() + "\n";
-				content = content + "DATE AJOUT:  " + product.getDateOfAdd() + " par " + product.getAdder()
+				content = content + "Add date:  " + product.getDateOfAdd() + " from " + product.getAdder()
 						+ "\n";
-				if (product.getState().compareTo("Emprunte") == 0)
-					content = content + "ETAT:  " + product.getState() + " par " + product.getBorrower() + "\n\n";
+				if (product.getState().compareTo("Borrowed") == 0)
+					content = content + "status:  " + product.getState() + " from " + product.getBorrower() + "\n\n";
 				else
-					content = content + "ETAT:  " + product.getState() + "\n\n";
-				content = content + "Informations emprunts:\n";
+					content = content + "Status:  " + product.getState() + "\n\n";
+				content = content + "Borrow Information:\n";
 				content = content + "--------------------------------------\n";
-				content = content + "NOMBRE EMPRUNT:  " + product.getNbrEmprunts() + "\n";
-				content = content + "NOTE MOYENNE:  " + product.getAvgGrade() + "\n";
-				content = content + "COMMENTAIRES:  ";
+				content = content + "Borrow Number:  " + product.getNbrEmprunts() + "\n";
+				content = content + "Average note:  " + product.getAvgGrade() + "\n";
+				content = content + "COMMENTS:  ";
 				LinkedList<String> listCommentaires = product.getReviews();
 				if (listCommentaires.size() == 0)
-					content = content + "Pas de commentaire\n";
+					content = content + "No Comments\n";
 				else {
 					content = content + "\n";
 					int i;
 					for (i = 0; i < listCommentaires.size(); i++)
 						content = content + " - " + listCommentaires.get(i) + "\n";
 				}
-				content = content + "NOMBRE D'ENSEIGNANTS EN ATTENTE:  " + product.nbrWaitingEnseignant() + "\n";
-				content = content + "NOMBRE D'ETUDIANTS EN ATTENTE:  " + product.nbrWaitingEtudiant() + "\n";
+				content = content + "Number of Professor waiting:  " + product.nbrWaitingEnseignant() + "\n";
+				content = content + "Number of Student waiting:  " + product.nbrWaitingEtudiant() + "\n";
 
 				infoProducts.setText(content);
 			} catch (RemoteException e) {
