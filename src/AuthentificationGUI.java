@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class PageAuthentification extends JLabel {
+public class AuthentificationGUI extends JLabel {
 	Terminal terminal;
 
 	JLabel userLabel;
@@ -22,7 +22,7 @@ public class PageAuthentification extends JLabel {
 
 	LinkedList<Utilisateur> utilisateurs;
 	
-	public PageAuthentification(Terminal terminal) {
+	public AuthentificationGUI(Terminal terminal) {
 		this.terminal = terminal;
 
 		this.setSize(900, 900);
@@ -71,7 +71,7 @@ public class PageAuthentification extends JLabel {
 				String userName = userNameField.getText();
 				String passWord = passWordField.getText();
 				
-				//Authentification reussi
+				//Successful Authentication
 				if (authentification(userName, passWord)==true){
 					String userGroupe = getUserGroupe(userName, passWord);
 					userNameErrorLabel.setVisible(true);
@@ -81,27 +81,27 @@ public class PageAuthentification extends JLabel {
 					terminal.setUserGroupe(userGroupe);
 					terminal.setOnline(true);
 					try {
-						//Activer les fonctionnalites d'ajout, d'emprunter si l'utilisateur est un enseignant ou un etudiant
+						//Enable add functionality, borrow if user is a teacher or student
 						if(userGroupe.compareTo("Enseignant")==0 || userGroupe.compareTo("Etudiant")==0){
-							terminal.getPageAllVehicules().initialiser();
-							terminal.getPageAllVehicules().activer();
-							terminal.getPageAllVehicules().chargerTableVehicules();
+							terminal.getPageAllProducts().initialiser();
+							terminal.getPageAllProducts().activer();
+							terminal.getPageAllProducts().LoadProductsTable();
 	
-							terminal.getPageEmprunt().initialiser();
-							terminal.getPageEmprunt().activer();
-							terminal.getPageEmprunt().chargerTableEmprunts();
+							terminal.getPageBorrower().initialiser();
+							terminal.getPageBorrower().activer();
+							terminal.getPageBorrower().loadTableBorrowers();
 	
-							terminal.getPageAjoutVehicule().initialiser();
-							terminal.getPageAjoutVehicule().activer();
+							terminal.getPageAddProduct().initialiser();
+							terminal.getPageAddProduct().activer();
 						}
-						//Activer la fonctionnalite d'achat pour tous les groupe d'utilisateur
+						//Enable purchase functionality for all user groups
 						terminal.getPageAchat().initialiser();
 						terminal.getPageAchat().activer();
-						terminal.getPageAchat().chargerTableVehiculesAchetables();	
+						terminal.getPageAchat().loadTableProductsBuyable();	
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
-				}else{//Authentification echouee => desactiver les pages
+				}else{//Failed Authentication => disable pages
 					userGroupeField.setText("Inconnu");
 					userNameErrorLabel.setVisible(true);
 					userNameErrorLabel.setText("Authentification echouee");
@@ -109,14 +109,14 @@ public class PageAuthentification extends JLabel {
 					terminal.setUserGroupe("");
 					terminal.setOnline(false);
 
-					terminal.getPageAllVehicules().initialiser();
-					terminal.getPageAllVehicules().desactiver();
+					terminal.getPageAllProducts().initialiser();
+					terminal.getPageAllProducts().desactiver();
 
-					terminal.getPageEmprunt().initialiser();
-					terminal.getPageEmprunt().desactiver();
+					terminal.getPageBorrower().initialiser();
+					terminal.getPageBorrower().desactiver();
 
-					terminal.getPageAjoutVehicule().initialiser();
-					terminal.getPageAjoutVehicule().desactiver();
+					terminal.getPageAddProduct().initialiser();
+					terminal.getPageAddProduct().desactiver();
 					
 					terminal.getPageAchat().initialiser();
 					terminal.getPageAchat().desactiver();
@@ -146,11 +146,11 @@ public class PageAuthentification extends JLabel {
 		return null;
 	}
 	
-	//Classe interne Utilisateur
+	//Internal class User
 	class Utilisateur{
 		String userName;
 		String passWord;
-		String userGroupe; //Enseignant, Etudiant, Client externe
+		String userGroupe; //Teacher, Student, External client
 		
 		Utilisateur(String userName, String passWord, String userGroupe){
 			this.userName = userName;

@@ -20,33 +20,33 @@ import javax.swing.border.Border;
 import javax.swing.text.DefaultCaret;
 
 @SuppressWarnings("serial")
-public class PageAllVehicules extends JLabel {
+public class AllProductsGUI extends JLabel {
 	Terminal terminal;
-	IStock stockVehicules;
-	LinkedList<IVehicule> listVehicules;
+	IStock stockProducts;
+	LinkedList<IProduct> listProducts;
 
 	JLabel labelRechercherID;
 	JLabel labelRechercherType;
-	JLabel labelRechercherEtat;
+	JLabel labelRechercherState;
 	JTextField rechercherID;
 	JTextField rechercherType;
-	JComboBox<String> rechercherEtat;
+	JComboBox<String> rechercherState;
 	JPanel vide0;
 	
 	JTextField titleID;
 	JTextField titleType;
 	JTextField titleDes;
-	JTextField titleEtat;
+	JTextField titleState;
 
 	JTextField[] ids;
 	JTextField[] types;
 	JTextField[] descriptions;
-	JTextField[] etats;
+	JTextField[] states;
 	JButton[] views;
 	JButton[] emprunters;
 	JPanel vide1;
 
-	JTextArea infoVehicule;
+	JTextArea infoProducts;
 
 	JPanel vide2;
 	JPanel vide3;
@@ -57,16 +57,15 @@ public class PageAllVehicules extends JLabel {
 	JScrollPane scroll;
 
 	@SuppressWarnings("unused")
-	public PageAllVehicules(Terminal terminal, IStock stockVehicules) throws RemoteException {
+	public AllProductsGUI(Terminal terminal, IStock stockProducts) throws RemoteException {
 		this.terminal = terminal;
-		this.stockVehicules = stockVehicules;
+		this.stockProducts = stockProducts;
 		this.setSize(900, 900);
 
-		// Definir les elements de l'interface
-		// ====================================================
+		// Defining interface elements
 		int i, k;
 		
-		//Zone recherche
+		//Search area
 		labelRechercherID = new JLabel("ID: ");
 		labelRechercherID.setPreferredSize(new Dimension(50,20));
 		labelRechercherID.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -79,18 +78,18 @@ public class PageAllVehicules extends JLabel {
 		rechercherType = new JTextField();
 		rechercherType.setPreferredSize(new Dimension(100,20));
 		
-		labelRechercherEtat = new JLabel("Etat: ");
-		labelRechercherEtat.setPreferredSize(new Dimension(100,20));
-		labelRechercherEtat.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelRechercherState = new JLabel("Etat: ");
+		labelRechercherState.setPreferredSize(new Dimension(100,20));
+		labelRechercherState.setHorizontalAlignment(SwingConstants.RIGHT);
 		String[] listEtats = {"","Disponible","Emprunte"};
-		rechercherEtat = new JComboBox<String>(listEtats);
-		rechercherEtat.setPreferredSize(new Dimension(100,20));
+		rechercherState = new JComboBox<String>(listEtats);
+		rechercherState.setPreferredSize(new Dimension(100,20));
 		
 		vide0 = new JPanel();
 		vide0.setOpaque(false);
 		vide0.setPreferredSize(new Dimension(800, 20));
 		
-		//Zone table
+		//Table area
 		titleID = new JTextField();
 		titleID.setEditable(false);
 		titleID.setText("ID");
@@ -106,11 +105,11 @@ public class PageAllVehicules extends JLabel {
 		titleDes.setText("Description");
 		titleDes.setHorizontalAlignment(JTextField.CENTER);
 		titleDes.setPreferredSize(new Dimension(350, 20));
-		titleEtat = new JTextField();
-		titleEtat.setEditable(false);
-		titleEtat.setText("Etat");
-		titleEtat.setHorizontalAlignment(JTextField.CENTER);
-		titleEtat.setPreferredSize(new Dimension(100, 20));
+		titleState = new JTextField();
+		titleState.setEditable(false);
+		titleState.setText("Etat");
+		titleState.setHorizontalAlignment(JTextField.CENTER);
+		titleState.setPreferredSize(new Dimension(100, 20));
 
 		ids = new JTextField[15];
 		for (i = 0; i < 15; i++) {
@@ -133,12 +132,12 @@ public class PageAllVehicules extends JLabel {
 			descriptions[i].setEditable(false);
 			descriptions[i].setPreferredSize(new Dimension(350, 20));
 		}
-		etats = new JTextField[15];
+		states = new JTextField[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
-			etats[i] = new JTextField();
-			etats[i].setEditable(false);
-			etats[i].setPreferredSize(new Dimension(100, 20));
+			states[i] = new JTextField();
+			states[i].setEditable(false);
+			states[i].setPreferredSize(new Dimension(100, 20));
 		}
 		views = new JButton[15];
 		for (i = 0; i < 15; i++) {
@@ -155,18 +154,18 @@ public class PageAllVehicules extends JLabel {
 			emprunters[i].setPreferredSize(new Dimension(100, 20));
 		}
 		
-		//Zone text area
+		//text area
 		vide1 = new JPanel();
 		vide1.setOpaque(false);
 		vide1.setPreferredSize(new Dimension(800, 20));
 
-		infoVehicule = new JTextArea();
+		infoProducts = new JTextArea();
 		Border border = BorderFactory.createEmptyBorder(2, 2, 2, 2);
-		infoVehicule.setBorder(border);
-		infoVehicule.setEditable(false);
-		DefaultCaret caret = (DefaultCaret) infoVehicule.getCaret();
+		infoProducts.setBorder(border);
+		infoProducts.setEditable(false);
+		DefaultCaret caret = (DefaultCaret) infoProducts.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		scroll = new JScrollPane(infoVehicule);
+		scroll = new JScrollPane(infoProducts);
 		scroll.setPreferredSize(new Dimension(800, 200));
 
 		vide2 = new JPanel();
@@ -182,7 +181,7 @@ public class PageAllVehicules extends JLabel {
 		recharger.setPreferredSize(new Dimension(200, 20));
 		recharger.addActionListener(new ButtonListener_Recharger());
 
-		// Organiser des elements de l'interface
+		//Organize interface elements
 		// =======================================================================
 		this.setPreferredSize(new Dimension(800, 600));
 		this.setLayout(new GridBagLayout());
@@ -208,11 +207,11 @@ public class PageAllVehicules extends JLabel {
 		// ---------------------------------------------
 		gbc.gridx = 8;
 		gbc.gridwidth = 2;
-		this.add(labelRechercherEtat, gbc);
+		this.add(labelRechercherState, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 10;
 		gbc.gridwidth = 2;
-		this.add(rechercherEtat, gbc);
+		this.add(rechercherState, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 0;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -237,7 +236,7 @@ public class PageAllVehicules extends JLabel {
 		// ---------------------------------------------
 		gbc.gridx = 10;
 		gbc.gridwidth = 2;
-		this.add(titleEtat, gbc);
+		this.add(titleState, gbc);
 		// ---------------------------------------------
 		for (i = 0; i < 15; i++) {
 			gbc.gridx = 0;
@@ -268,7 +267,7 @@ public class PageAllVehicules extends JLabel {
 			gbc.gridwidth = 2;
 			gbc.gridy = i + 3;
 			gbc.gridheight = 1;
-			this.add(etats[i], gbc);
+			this.add(states[i], gbc);
 		}
 		for (i = 0; i < 15; i++) {
 			gbc.gridx = 12;
@@ -316,20 +315,20 @@ public class PageAllVehicules extends JLabel {
 		this.setVisible(true);
 	}
 
-	//Activer la page
+	//Activate page
 	public void activer(){
 		recharger.setEnabled(true);
 		rechercherID.setEnabled(true);;
 		rechercherType.setEnabled(true);;
-		rechercherEtat.setEnabled(true);
+		rechercherState.setEnabled(true);
 	}
 	
-	//Desactiver la page
+	//Deactivate the page
 	public void desactiver(){
 		recharger.setEnabled(false);
 		rechercherID.setEnabled(false);;
 		rechercherType.setEnabled(false);;
-		rechercherEtat.setEnabled(false);
+		rechercherState.setEnabled(false);
 	}
 	
 	public void initialiser() {
@@ -338,8 +337,8 @@ public class PageAllVehicules extends JLabel {
 			ids[i].setText("");
 			types[i].setText("");
 			descriptions[i].setText("");
-			etats[i].setText("");
-			etats[i].setBackground(Color.white);
+			states[i].setText("");
+			states[i].setBackground(Color.white);
 			ActionListener[] actionListViews = views[i].getActionListeners();
 			if (actionListViews.length > 0)
 				views[i].removeActionListener(actionListViews[0]);
@@ -349,64 +348,64 @@ public class PageAllVehicules extends JLabel {
 				emprunters[i].removeActionListener(actionListEmprunters[0]);
 			emprunters[i].setEnabled(false);
 		}
-		infoVehicule.setText("");
+		infoProducts.setText("");
 	}
 	
-	//Charger les donnees
-	public void chargerTableVehicules() throws RemoteException {
-		listVehicules = stockVehicules.getVehicules(rechercherID.getText(),rechercherType.getText(),(String)rechercherEtat.getSelectedItem());
-		IVehicule vehicule;
+	//Load the data
+	public void LoadProductsTable() throws RemoteException {
+		listProducts = stockProducts.getProducts(rechercherID.getText(),rechercherType.getText(),(String)rechercherState.getSelectedItem());
+		IProduct product;
 		int i;
-		for (i = 0; i < listVehicules.size(); i++) {
-			vehicule = listVehicules.get(i);
-			ids[i].setText(vehicule.getId());
-			types[i].setText(vehicule.getType());
-			descriptions[i].setText(vehicule.getDescription());
-			String etat = vehicule.getEtat();
-			etats[i].setText(etat);
+		for (i = 0; i < listProducts.size(); i++) {
+			product = listProducts.get(i);
+			ids[i].setText(product.getId());
+			types[i].setText(product.getType());
+			descriptions[i].setText(product.getDescription());
+			String etat = product.getState();
+			states[i].setText(etat);
 			if (etat.compareTo("Disponible") == 0)
-				etats[i].setBackground(Color.cyan);
+				states[i].setBackground(Color.cyan);
 			else if (etat.compareTo("Emprunte") == 0)
-				etats[i].setBackground(Color.green);
+				states[i].setBackground(Color.green);
 			else
-				etats[i].setBackground(Color.red);
-			views[i].addActionListener(new ButtonListener_Voir(vehicule));
+				states[i].setBackground(Color.red);
+			views[i].addActionListener(new ButtonListener_Voir(product));
 			views[i].setEnabled(true);
-			emprunters[i].addActionListener(new ButtonListener_Emprunter(vehicule));
+			emprunters[i].addActionListener(new ButtonListener_Emprunter(product));
 			emprunters[i].setEnabled(true);
 		}
 	}
 
-	//Bouton Voir
+	//View Button
 	class ButtonListener_Voir implements ActionListener {
 
-		private IVehicule vehicule;
+		private IProduct product;
 
-		public ButtonListener_Voir(IVehicule vehicule) {
-			this.vehicule = vehicule;
+		public ButtonListener_Voir(IProduct product) {
+			this.product = product;
 		}
 
 		public void actionPerformed(ActionEvent arg0) {
-			infoVehicule.setText("");
+			infoProducts.setText("");
 			String content = new String("");
 			try {
-				content = content + "ID:  " + vehicule.getId() + "\n\n";
+				content = content + "ID:  " + product.getId() + "\n\n";
 				content = content + "Informations generale:\n";
 				content = content + "--------------------------------------\n";
-				content = content + "TYPE:  " + vehicule.getType() + "\n";
-				content = content + "DESCRIPTION:  " + vehicule.getDescription() + "\n";
-				content = content + "DATE AJOUT:  " + vehicule.getDateAjout() + " par " + vehicule.getAjouteur()
+				content = content + "TYPE:  " + product.getType() + "\n";
+				content = content + "DESCRIPTION:  " + product.getDescription() + "\n";
+				content = content + "DATE AJOUT:  " + product.getDateOfAdd() + " par " + product.getAdder()
 						+ "\n";
-				if (vehicule.getEtat().compareTo("Emprunte") == 0)
-					content = content + "ETAT:  " + vehicule.getEtat() + " par " + vehicule.getEmprunteur() + "\n\n";
+				if (product.getState().compareTo("Emprunte") == 0)
+					content = content + "ETAT:  " + product.getState() + " par " + product.getBorrower() + "\n\n";
 				else
-					content = content + "ETAT:  " + vehicule.getEtat() + "\n\n";
+					content = content + "ETAT:  " + product.getState() + "\n\n";
 				content = content + "Informations emprunts:\n";
 				content = content + "--------------------------------------\n";
-				content = content + "NOMBRE EMPRUNT:  " + vehicule.getNbrEmprunts() + "\n";
-				content = content + "NOTE MOYENNE:  " + vehicule.getNoteMoyenne() + "\n";
+				content = content + "NOMBRE EMPRUNT:  " + product.getNbrEmprunts() + "\n";
+				content = content + "NOTE MOYENNE:  " + product.getAvgGrade() + "\n";
 				content = content + "COMMENTAIRES:  ";
-				LinkedList<String> listCommentaires = vehicule.getCommentaires();
+				LinkedList<String> listCommentaires = product.getReviews();
 				if (listCommentaires.size() == 0)
 					content = content + "Pas de commentaire\n";
 				else {
@@ -415,10 +414,10 @@ public class PageAllVehicules extends JLabel {
 					for (i = 0; i < listCommentaires.size(); i++)
 						content = content + " - " + listCommentaires.get(i) + "\n";
 				}
-				content = content + "NOMBRE D'ENSEIGNANTS EN ATTENTE:  " + vehicule.nbrAttendreEnseignant() + "\n";
-				content = content + "NOMBRE D'ETUDIANTS EN ATTENTE:  " + vehicule.nbrAttendreEtudiant() + "\n";
+				content = content + "NOMBRE D'ENSEIGNANTS EN ATTENTE:  " + product.nbrWaitingEnseignant() + "\n";
+				content = content + "NOMBRE D'ETUDIANTS EN ATTENTE:  " + product.nbrWaitingEtudiant() + "\n";
 
-				infoVehicule.setText(content);
+				infoProducts.setText(content);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -426,30 +425,30 @@ public class PageAllVehicules extends JLabel {
 
 	}
 
-	//Bouton emprunter
+	//Button borrow
 	class ButtonListener_Emprunter implements ActionListener {
 
-		private IVehicule vehicule;
+		private IProduct product;
 
-		public ButtonListener_Emprunter(IVehicule vehicule) {
-			this.vehicule = vehicule;
+		public ButtonListener_Emprunter(IProduct product) {
+			this.product = product;
 		}
 
 		public void actionPerformed(ActionEvent arg0) {
-			infoVehicule.setText("");
+			infoProducts.setText("");
 			String content = new String("MESSAGE:  ");
 			try {
-				String message = vehicule.ajoutAttendre(PageAllVehicules.this.terminal.getUserName(),
-						PageAllVehicules.this.terminal.getUserGroupe());
+				String message = product.ajoutAttendre(AllProductsGUI.this.terminal.getUserName(),
+						AllProductsGUI.this.terminal.getUserGroupe());
 				content = content + message;
-				//Recharger les pages
+				//Reload pages
 				initialiser();
-				chargerTableVehicules();
-				terminal.getPageEmprunt().initialiser();
-				terminal.getPageEmprunt().chargerTableEmprunts();
+				LoadProductsTable();
+				terminal.getPageBorrower().initialiser();
+				terminal.getPageBorrower().loadTableBorrowers();
 				terminal.getPageAchat().initialiser();
-				terminal.getPageAchat().chargerTableVehiculesAchetables();
-				infoVehicule.setText(content);
+				terminal.getPageAchat().loadTableProductsBuyable();
+				infoProducts.setText(content);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -457,12 +456,12 @@ public class PageAllVehicules extends JLabel {
 
 	}
 
-	//Bouton recharger
+	//Recharge button
 	class ButtonListener_Recharger implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			try {
 				initialiser();
-				chargerTableVehicules();
+				LoadProductsTable();
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}

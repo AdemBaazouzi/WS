@@ -5,130 +5,130 @@ import java.util.LinkedList;
 
 @SuppressWarnings("serial")
 public class Stock extends UnicastRemoteObject implements IStock {
-	int nbrVehicules;
-	LinkedList<IVehicule> listVehicules;
+	int nbrProducts;
+	LinkedList<IProduct> listProducts;
 
 	public Stock() throws RemoteException {
-		this.nbrVehicules = 0;
-		listVehicules = new LinkedList<IVehicule>();
+		this.nbrProducts = 0;
+		listProducts = new LinkedList<IProduct>();
 	}
 
-	public int getNbrVehicules() throws RemoteException {
-		return this.nbrVehicules;
+	public int getNbrProducts() throws RemoteException {
+		return this.nbrProducts;
 	}
 
-	//La liste des vehicules, les parametres sont les criteres de recherche
-	public LinkedList<IVehicule> getVehicules(String id, String type, String etat) throws RemoteException {
-		LinkedList<IVehicule> list = new LinkedList<IVehicule>();
+	//The list of products, the parameters are the search criteria
+	public LinkedList<IProduct> getProducts(String id, String type, String etat) throws RemoteException {
+		LinkedList<IProduct> list = new LinkedList<IProduct>();
 		int i;
 		boolean recherche = true;
-		IVehicule vehicule;
-		for (i = 0; i < listVehicules.size(); i++) {
+		IProduct product;
+		for (i = 0; i < listProducts.size(); i++) {
 
-			vehicule = listVehicules.get(i);
-			//Pas encore vendu
-			if (vehicule.getVendu()) {
+			product = listProducts.get(i);
+			//not yet sold
+			if (product.getSoldProd()) {
 				recherche = false;
 			}
-			//Si recherche par id
+			//if search is by Id
 			if (id != null && id.length() > 0) {
-				if (vehicule.getId().compareTo(id) != 0)
+				if (product.getId().compareTo(id) != 0)
 					recherche = false;
 			}
-			//Si recherche par type
+			//if search is by Type
 			if (type != null && type.length() > 0) {
-				if (vehicule.getType().compareTo(type) != 0)
+				if (product.getType().compareTo(type) != 0)
 					recherche = false;
 			}
-			//Si recherche par etat
+			//if search is by State
 			if (etat != null && etat.length() > 0) {
-				if (vehicule.getEtat().compareTo(etat) != 0)
+				if (product.getState().compareTo(etat) != 0)
 					recherche = false;
 			}
 
 			if (recherche == true)
-				list.add(vehicule);
+				list.add(product);
 
 			recherche = true;
 		}
 		return list;
 	}
 
-	//La liste des vehicules achetables, les parametres sont les criteres de recherche
-	public LinkedList<IVehicule> getVehiculesAchetables(String id, String type, String etat) throws RemoteException {
-		LinkedList<IVehicule> list = new LinkedList<IVehicule>();
+	//The list of purchasable products, the parameters are the search criteria
+	public LinkedList<IProduct> getProductsBuyable(String id, String type, String etat) throws RemoteException {
+		LinkedList<IProduct> list = new LinkedList<IProduct>();
 		int i;
 		boolean recherche = true;
-		IVehicule vehicule;
-		for (i = 0; i < listVehicules.size(); i++) {
+		IProduct product;
+		for (i = 0; i < listProducts.size(); i++) {
 
-			vehicule = listVehicules.get(i);
+			product = listProducts.get(i);
 
-			if (!vehicule.isAchetable()) {
+			if (!product.isAchetable()) {
 				recherche = false;
 			}
 
 			if (id != null && id.length() > 0) {
-				if (vehicule.getId().compareTo(id) != 0)
+				if (product.getId().compareTo(id) != 0)
 					recherche = false;
 			}
 			if (type != null && type.length() > 0) {
-				if (vehicule.getType().compareTo(type) != 0)
+				if (product.getType().compareTo(type) != 0)
 					recherche = false;
 			}
 			if (etat != null && etat.length() > 0) {
-				if (vehicule.getEtat().compareTo(etat) != 0)
+				if (product.getState().compareTo(etat) != 0)
 					recherche = false;
 			}
 
 			if (recherche == true)
-				list.add(vehicule);
+				list.add(product);
 
 			recherche = true;
 		}
 		return list;
 	}
 
-	//Ajouter un vehicule dans la base
-	public void ajoutVehicule(String type, String description, double prixEuro, String ajouteur, Date date)
+	//Add a vehicle to the database
+	public void addProduct(String type, String description, double prixEuro, String adder, Date date)
 			throws RemoteException {
-		nbrVehicules++;
-		String id = "Veh" + nbrVehicules;
-		Vehicule vehicule = new Vehicule(id, type, description, prixEuro, date, ajouteur);
-		this.listVehicules.add(vehicule);
+		nbrProducts++;
+		String id = "Veh" + nbrProducts;
+		Product product = new Product(id, type, description, prixEuro, date, adder);
+		this.listProducts.add(product);
 	}
 
-	//Les vehicules en train d'etre occupes par 'userName'
-	public LinkedList<IVehicule> getVehiculesEmpruntesByUser(String userName) throws RemoteException {
-		LinkedList<IVehicule> listVehiculesEmpruntesByUser = new LinkedList<IVehicule>();
+	//Vehicles being occupied by 'userName'
+	public LinkedList<IProduct> getProductsBorrowedByUser(String userName) throws RemoteException {
+		LinkedList<IProduct> listProductsBorrowedByUser = new LinkedList<IProduct>();
 
 		int i;
-		IVehicule vehicule;
+		IProduct product;
 
-		for (i = 0; i < this.listVehicules.size(); i++) {
-			vehicule = this.listVehicules.get(i);
-			if (vehicule.getEmprunteur().compareTo(userName) == 0)
-				listVehiculesEmpruntesByUser.add(vehicule);
+		for (i = 0; i < this.listProducts.size(); i++) {
+			product = this.listProducts.get(i);
+			if (product.getBorrower().compareTo(userName) == 0)
+				listProductsBorrowedByUser.add(product);
 		}
 
-		return listVehiculesEmpruntesByUser;
+		return listProductsBorrowedByUser;
 	}
 
-	//vendre les vehicules d'un panier d'un client
-	public String vendreVehicules(LinkedList<IVehicule> panier, double montant, String devise) throws RemoteException {
+	//Sell products from a customer's basket
+	public String sellProducts(LinkedList<IProduct> panier, double amount, String devise) throws RemoteException {
 		int i;
-		//Verifier si tous les vehicules sont encore achetables
+		//Check whether all products are still purchasable
 		for (i = 0; i < panier.size(); i++) {
-			IVehicule vehicule = panier.get(i);
-			if (vehicule.getVendu() || vehicule.getEtat().compareTo("Disponible") != 0
-					|| vehicule.nbrAttendreEnseignant() > 0 || vehicule.nbrAttendreEtudiant() > 0) {
+			IProduct product = panier.get(i);
+			if (product.getSoldProd() || product.getState().compareTo("Disponible") != 0
+					|| product.nbrWaitingEnseignant() > 0 || product.nbrWaitingEtudiant() > 0) {
 				return "Achat echoue, un ou plusieurs vehicules choisis ne sont plus achetable";
 			}
 		}
 		for (i = 0; i < panier.size(); i++) {
-			IVehicule vehicule = panier.get(i);
-			vehicule.vendre();
+			IProduct product = panier.get(i);
+			product.sell();
 		}
-		return "Achat reussi, le montant total est "+montant+devise;
+		return "Achat reussi, le montant total est "+amount+devise;
 	}
 }

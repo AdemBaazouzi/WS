@@ -10,10 +10,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class PageAjoutVehicule extends JLabel {
+public class AddProductGUI extends JLabel {
 
 	Terminal terminal;
-	IStock stockVehicules;
+	IStock stockProducts;
 	JLabel userLabel;
 	JLabel userInfoLabel;
 	JLabel typeLabel;
@@ -22,11 +22,11 @@ public class PageAjoutVehicule extends JLabel {
 	JTextArea descField;
 	JComboBox<String> typeField;
 	JTextField prixField;
-	JButton ajoutButton;
+	JButton addButton;
 
-	public PageAjoutVehicule(Terminal terminal, IStock stockVehicules) {
+	public AddProductGUI(Terminal terminal, IStock stockProducts) {
 		this.terminal = terminal;
-		this.stockVehicules = stockVehicules;
+		this.stockProducts = stockProducts;
 		this.setSize(900, 900);
 		this.setLayout(null);
 
@@ -63,17 +63,16 @@ public class PageAjoutVehicule extends JLabel {
 		prixField.setBounds(470, 220, 160, 25);
 		this.add(prixField);
 
-		ajoutButton = new JButton("Ajouter");
-		ajoutButton.setBounds(470, 260, 80, 25);
-		this.add(ajoutButton);
-		ajoutButton.addActionListener(new ActionListener() {
+		addButton = new JButton("Ajouter");
+		addButton.setBounds(470, 260, 80, 25);
+		this.add(addButton);
+		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					stockVehicules.ajoutVehicule((String)typeField.getSelectedItem(), descField.getText(), Double.parseDouble(prixField.getText()), terminal.getUserName(), new Date());
-					terminal.getPageAllVehicules().initialiser();
-					terminal.getPageAllVehicules().chargerTableVehicules();
+					stockProducts.addProduct((String)typeField.getSelectedItem(), descField.getText(), Double.parseDouble(prixField.getText()), terminal.getUserName(), new Date());
+					terminal.getPageAllProducts().initialiser();
+					terminal.getPageAllProducts().LoadProductsTable();
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -81,20 +80,20 @@ public class PageAjoutVehicule extends JLabel {
 		this.setVisible(true);
 	}
 
-	//Activer la page
+	//Activate page
 	public void activer() {
 		String userInfo = terminal.getUserName() + " - " + terminal.getUserGroupe();
 		userInfoLabel.setText(userInfo);
-		ajoutButton.setEnabled(true);
+		addButton.setEnabled(true);
 		descField.setEnabled(true);
 		prixField.setEnabled(true);
 		typeField.setEnabled(true);
 	}
 
-	//Desactiver la page
+	//Deactivate the page
 	public void desactiver() {
 		userInfoLabel.setText("Non identifie");
-		ajoutButton.setEnabled(false);
+		addButton.setEnabled(false);
 		descField.setEnabled(false);
 		prixField.setEnabled(false);
 		typeField.setEnabled(false);

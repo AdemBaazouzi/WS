@@ -8,43 +8,43 @@ public class Terminal extends JFrame{
 	private String userName = "NGHIEM Duy Khanh";
 	private String userGroupe = "Etudiant";
 	private boolean online;
-	private IStock stockVehicules;
+	private IStock stockProducts;
 	private JTabbedPane onglet;
-	private PageAuthentification pageAuthentification;
-	private PageAjoutVehicule pageAjoutVehicule;
-	private PageAllVehicules pageAllVehicules;
-	private PageEmprunt pageEmprunt;
-	private PageAchat pageAchat;
+	private AuthentificationGUI pageAuthentification;
+	private AddProductGUI pageAddProduct;
+	private AllProductsGUI pageAllProducts;
+	private LoanGUI pageEmprunt;
+	private PurchaseGUI pageAchat;
 	
-	public Terminal(IStock stockVehicules) throws RemoteException{
-		this.stockVehicules = stockVehicules;
-		this.setTitle("Dauphine vehicules");
+	public Terminal(IStock stockProducts) throws RemoteException{
+		this.stockProducts = stockProducts;
+		this.setTitle("Dauphine products");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(1000, 1000);
 		this.setLocationRelativeTo(null);
 		
-		//Definir l'onglet et les pages
+		//Define tab and pages
 		onglet = new JTabbedPane();
-		//Creation des pages. Au debut les pages sont desactivees
-        pageAuthentification = new PageAuthentification(this);
-        pageAjoutVehicule = new PageAjoutVehicule(this, this.stockVehicules);
-        pageAjoutVehicule.desactiver();
-		pageAllVehicules = new PageAllVehicules(this, this.stockVehicules);
-		pageAllVehicules.desactiver();
-		pageAllVehicules.initialiser();
-		pageEmprunt = new PageEmprunt(this, this.stockVehicules);
+		//Creating pages. At the beginning the pages are disactivated
+        pageAuthentification = new AuthentificationGUI(this);
+        pageAddProduct = new AddProductGUI(this, this.stockProducts);
+        pageAddProduct.desactiver();
+		pageAllProducts = new AllProductsGUI(this, this.stockProducts);
+		pageAllProducts.desactiver();
+		pageAllProducts.initialiser();
+		pageEmprunt = new LoanGUI(this, this.stockProducts);
 		pageEmprunt.desactiver();
 		pageEmprunt.initialiser();
-		pageAchat = new PageAchat(this, this.stockVehicules);
+		pageAchat = new PurchaseGUI(this, this.stockProducts);
 		pageAchat.desactiver();
 		pageAchat.initialiser();
 		onglet.add("Authentification", pageAuthentification);
-        onglet.add("Ajout vehicules", pageAjoutVehicule);
-		onglet.add("Liste vehicules", pageAllVehicules);
+        onglet.add("Ajout products", pageAddProduct);
+		onglet.add("Liste products", pageAllProducts);
 		onglet.add("Liste emprunts", pageEmprunt);
 		onglet.add("Cars Service", pageAchat);
 		 
-		// On passe ensuite les onglets au content pane
+		// We then pass the tabs to the content pane
 		this.getContentPane().add(onglet);
 		this.setVisible(true);
 	}
@@ -73,23 +73,23 @@ public class Terminal extends JFrame{
             this.online = online;
         }
         
-        public PageAuthentification getPageAuthentification(){
+        public AuthentificationGUI getPageAuthentification(){
         	return this.pageAuthentification;
         }
         
-        public PageAjoutVehicule getPageAjoutVehicule(){
-        	return this.pageAjoutVehicule;
+        public AddProductGUI getPageAddProduct(){
+        	return this.pageAddProduct;
         }
         
-        public PageAllVehicules getPageAllVehicules(){
-        	return this.pageAllVehicules;
+        public AllProductsGUI getPageAllProducts(){
+        	return this.pageAllProducts;
         }
         
-        public PageEmprunt getPageEmprunt(){
+        public LoanGUI getPageBorrower(){
         	return this.pageEmprunt;
         }
         
-        public PageAchat getPageAchat(){
+        public PurchaseGUI getPageAchat(){
         	return this.pageAchat;
         }
 }
