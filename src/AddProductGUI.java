@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -42,7 +43,7 @@ public class AddProductGUI extends JLabel {
 		typeLabel.setBounds(370, 60, 80, 25);
 		this.add(typeLabel);
 
-		String[] st = { "Livre", "Vetement", "Video Projecteur", "Cahier", "DVD interactif" };
+		String[] st = { "Book", "Cloths", "Video Projector", "White Board", "Interactive DVD" };
 		typeField = new JComboBox<String>(st);
 		typeField.setBounds(470, 60, 160, 25);
 		this.add(typeField);
@@ -54,7 +55,7 @@ public class AddProductGUI extends JLabel {
 		descField = new JTextArea();
 		descField.setBounds(470, 100, 200, 100);
 		this.add(descField);
-		
+
 		prixLabel = new JLabel("Price in Eur");
 		prixLabel.setBounds(370, 220, 80, 25);
 		this.add(prixLabel);
@@ -69,9 +70,12 @@ public class AddProductGUI extends JLabel {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					stockProducts.addProduct((String)typeField.getSelectedItem(), descField.getText(), Double.parseDouble(prixField.getText()), terminal.getUserName(), new Date());
+					stockProducts.addProduct((String) typeField.getSelectedItem(), descField.getText(),
+							Double.parseDouble(prixField.getText()), terminal.getUserName(), new Date());
 					terminal.getPageAllProducts().initialiser();
 					terminal.getPageAllProducts().LoadProductsTable();
+					JOptionPane.showMessageDialog(terminal, "Product Added", "Success",
+							JOptionPane.INFORMATION_MESSAGE);
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
@@ -80,7 +84,7 @@ public class AddProductGUI extends JLabel {
 		this.setVisible(true);
 	}
 
-	//Activate page
+	// Activate page
 	public void activer() {
 		String userInfo = terminal.getUserName() + " - " + terminal.getUserGroupe();
 		userInfoLabel.setText(userInfo);
@@ -90,7 +94,7 @@ public class AddProductGUI extends JLabel {
 		typeField.setEnabled(true);
 	}
 
-	//Deactivate the page
+	// Deactivate the page
 	public void desactiver() {
 		userInfoLabel.setText("Non identifiable");
 		addButton.setEnabled(false);

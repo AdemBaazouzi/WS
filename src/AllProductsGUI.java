@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -81,7 +82,7 @@ public class AllProductsGUI extends JLabel {
 		labelRechercherState = new JLabel("Status: ");
 		labelRechercherState.setPreferredSize(new Dimension(100,25));
 		labelRechercherState.setHorizontalAlignment(SwingConstants.RIGHT);
-		String[] listEtats = {"","Avaible","Borrowed"};
+		String[] listEtats = {"","Available","Borrowed"};
 		rechercherState = new JComboBox<String>(listEtats);
 		rechercherState.setPreferredSize(new Dimension(100,25));
 		
@@ -94,12 +95,12 @@ public class AllProductsGUI extends JLabel {
 		titleID.setEditable(false);
 		titleID.setText("ID");
 		titleID.setHorizontalAlignment(JTextField.CENTER);
-		titleID.setPreferredSize(new Dimension(50, 25));
+		titleID.setPreferredSize(new Dimension(60, 25));
 		titleType = new JTextField();
 		titleType.setEditable(false);
 		titleType.setText("Type");
 		titleType.setHorizontalAlignment(JTextField.CENTER);
-		titleType.setPreferredSize(new Dimension(100, 25));
+		titleType.setPreferredSize(new Dimension(150, 25));
 		titleDes = new JTextField();
 		titleDes.setEditable(false);
 		titleDes.setText("Description");
@@ -116,14 +117,14 @@ public class AllProductsGUI extends JLabel {
 			k = i + 1;
 			ids[i] = new JTextField();
 			ids[i].setEditable(false);
-			ids[i].setPreferredSize(new Dimension(50, 25));
+			ids[i].setPreferredSize(new Dimension(60, 25));
 		}
 		types = new JTextField[15];
 		for (i = 0; i < 15; i++) {
 			k = i + 1;
 			types[i] = new JTextField();
 			types[i].setEditable(false);
-			types[i].setPreferredSize(new Dimension(100, 25));
+			types[i].setPreferredSize(new Dimension(150, 25));
 		}
 		descriptions = new JTextField[15];
 		for (i = 0; i < 15; i++) {
@@ -191,27 +192,27 @@ public class AllProductsGUI extends JLabel {
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
-		this.add(labelRechercherID, gbc);
+	//	this.add(labelRechercherID, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 1;
 		gbc.gridwidth = 2;
-		this.add(rechercherID, gbc);
+	//	this.add(rechercherID, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 4;
 		gbc.gridwidth = 2;
-		this.add(labelRechercherType, gbc);
+	//	this.add(labelRechercherType, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 6;
 		gbc.gridwidth = 2;
-		this.add(rechercherType, gbc);
+	//	this.add(rechercherType, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 8;
 		gbc.gridwidth = 2;
-		this.add(labelRechercherState, gbc);
+		//this.add(labelRechercherState, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 10;
 		gbc.gridwidth = 2;
-		this.add(rechercherState, gbc);
+	//	this.add(rechercherState, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 0;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -309,7 +310,7 @@ public class AllProductsGUI extends JLabel {
 		// ---------------------------------------------
 		gbc.gridx = 12;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
-		this.add(recharger, gbc);
+		//this.add(recharger, gbc);
 		// ---------------------------------------------
 
 		this.setVisible(true);
@@ -364,9 +365,9 @@ public class AllProductsGUI extends JLabel {
 			String Status = product.getState();
 			states[i].setText(Status);
 			if (Status.compareTo("Available") == 0)
-				states[i].setBackground(Color.cyan);
+				states[i].setBackground(Color.GREEN);
 			else if (Status.compareTo("Borrowed") == 0)
-				states[i].setBackground(Color.green);
+				states[i].setBackground(Color.gray);
 			else
 				states[i].setBackground(Color.red);
 			views[i].addActionListener(new ButtonListener_Voir(product));
@@ -394,10 +395,10 @@ public class AllProductsGUI extends JLabel {
 				content = content + "--------------------------------------\n";
 				content = content + "TYPE:  " + product.getType() + "\n";
 				content = content + "DESCRIPTION:  " + product.getDescription() + "\n";
-				content = content + "Add date:  " + product.getDateOfAdd() + " from " + product.getAdder()
+				content = content + "Add date:  " + product.getDateOfAdd() + " by " + product.getAdder()
 						+ "\n";
 				if (product.getState().compareTo("Borrowed") == 0)
-					content = content + "status:  " + product.getState() + " from " + product.getBorrower() + "\n\n";
+					content = content + "status:  " + product.getState() + " by " + product.getBorrower() + "\n\n";
 				else
 					content = content + "Status:  " + product.getState() + "\n\n";
 				content = content + "Borrow Information:\n";
@@ -448,7 +449,8 @@ public class AllProductsGUI extends JLabel {
 				terminal.getPageBorrower().loadTableBorrowers();
 				terminal.getPageAchat().initialiser();
 				terminal.getPageAchat().loadTableProductsBuyable();
-				infoProducts.setText(content);
+				JOptionPane.showMessageDialog(terminal, content);
+				//infoProducts.setText(content);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -15,7 +16,7 @@ public class AuthentificationGUI extends JLabel {
 	JLabel userLabel;
 	JTextField userNameField;
 	JLabel passWordLabel;
-	JTextField passWordField;
+	JPasswordField passWordField;
 	JLabel userNameErrorLabel;
 	JLabel groupLabel;
 	JLabel userGroupeField;
@@ -46,7 +47,7 @@ public class AuthentificationGUI extends JLabel {
 		passWordLabel.setBounds(370, 60, 400, 510);
 		this.add(passWordLabel);
 
-		passWordField = new JTextField(25);
+		passWordField = new JPasswordField(25);
 		passWordField.setBounds(470, 310, 160, 25);
 		this.add(passWordField);
 
@@ -55,7 +56,7 @@ public class AuthentificationGUI extends JLabel {
 		this.add(groupLabel);
 
 		utilisateurs = new LinkedList<Utilisateur>();
-		
+
 		utilisateurs.add(new Utilisateur("mahdi", "mahdi", "Professor"));
 		utilisateurs.add(new Utilisateur("anis", "anis", "Student"));
 		utilisateurs.add(new Utilisateur("adam", "adam", "Student"));
@@ -82,8 +83,14 @@ public class AuthentificationGUI extends JLabel {
 					terminal.setUserName(userName);
 					terminal.setUserGroupe(userGroupe);
 					terminal.setOnline(true);
+					Terminal.onglet.add("Add products", Terminal.pageAddProduct);
+					Terminal.onglet.add("Productlist", Terminal.pageAllProducts);
+					Terminal.onglet.add("Borrow list", Terminal.pageEmprunt);
+					Terminal.onglet.add("Product Sell Service", Terminal.pageAchat);
+					Terminal.onglet.remove(Terminal.pageAuthentification);
 					try {
-						// Enable add functionality, borrow if user is a Professor
+						// Enable add functionality, borrow if user is a
+						// Professor
 						// or student
 						if (userGroupe.compareTo("Professor") == 0 || userGroupe.compareTo("Student") == 0) {
 							terminal.getPageAllProducts().initialiser();

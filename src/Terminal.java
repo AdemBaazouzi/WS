@@ -15,16 +15,21 @@ public class Terminal extends JFrame {
 	private String userGroupe = "Student";
 	private boolean online;
 	private IStock stockProducts;
-	private JTabbedPane onglet;
-	private AuthentificationGUI pageAuthentification;
-	private AddProductGUI pageAddProduct;
-	private AllProductsGUI pageAllProducts;
-	private LoanGUI pageEmprunt;
-	private PurchaseGUI pageAchat;
+	public static JTabbedPane onglet;
+	public static AuthentificationGUI pageAuthentification;
+	public static AddProductGUI pageAddProduct;
+	public static AllProductsGUI pageAllProducts;
+	public static LoanGUI pageEmprunt;
+	public static PurchaseGUI pageAchat;
 
 	public Terminal(IStock stockProducts) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException, IOException {
-		UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		String OS = System.getProperty("os.name");
+		if (OS.startsWith("Linux")) {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		} else
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+
 		this.stockProducts = stockProducts;
 		this.setTitle("Dauphine products 2017");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,11 +55,12 @@ public class Terminal extends JFrame {
 		pageAchat = new PurchaseGUI(this, this.stockProducts);
 		pageAchat.desactiver();
 		pageAchat.initialiser();
+
 		onglet.add("Authentification", pageAuthentification);
-		onglet.add("Add products", pageAddProduct);
-		onglet.add("Productlist", pageAllProducts);
-		onglet.add("Borrow list", pageEmprunt);
-		onglet.add("Product Sell Service", pageAchat);
+		// onglet.add("Add products", pageAddProduct);
+		// onglet.add("Productlist", pageAllProducts);
+		// onglet.add("Borrow list", pageEmprunt);
+		// onglet.add("Product Sell Service", pageAchat);
 
 		// We then pass the tabs to the content pane
 		this.getContentPane().add(onglet);

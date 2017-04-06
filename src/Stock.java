@@ -114,7 +114,7 @@ public class Stock extends UnicastRemoteObject implements IStock {
 		return listProductsBorrowedByUser;
 	}
 
-	// Sell products from a customer's basket
+	// Sell products by a customer's basket
 	public String sellProducts(LinkedList<IProduct> panier, double amount, String devise) throws RemoteException {
 		int i;
 		// Check whether all products are still purchasable

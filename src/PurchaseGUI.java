@@ -83,7 +83,7 @@ public class PurchaseGUI extends JLabel {
 		labelRechercherID.setPreferredSize(new Dimension(50, 25));
 		labelRechercherID.setHorizontalAlignment(SwingConstants.RIGHT);
 		rechercherID = new JTextField();
-		rechercherID.setPreferredSize(new Dimension(100, 20));
+		rechercherID.setPreferredSize(new Dimension(100, 30));
 
 		labelRechercherType = new JLabel("Type: ");
 		labelRechercherType.setPreferredSize(new Dimension(100, 25));
@@ -168,7 +168,7 @@ public class PurchaseGUI extends JLabel {
 			k = i + 1;
 			views[i] = new JButton();
 			views[i].setText("Details");
-			views[i].setPreferredSize(new Dimension(50, 20));
+			views[i].setPreferredSize(new Dimension(65, 20));
 		}
 		acheters = new JCheckBox[15];
 		for (i = 0; i < 15; i++) {
@@ -190,7 +190,7 @@ public class PurchaseGUI extends JLabel {
 		titleTotal.setHorizontalAlignment(SwingConstants.LEFT);
 		amountTotal = new JTextField();
 		amountTotal.setEditable(false);
-		amountTotal.setPreferredSize(new Dimension(100, 20));
+		amountTotal.setPreferredSize(new Dimension(100, 30));
 		acheter = new JButton();
 		acheter.setText("Buy");
 		acheter.setHorizontalTextPosition(JButton.CENTER);
@@ -233,27 +233,27 @@ public class PurchaseGUI extends JLabel {
 		gbc.gridy = 0;
 		gbc.gridheight = 1;
 		gbc.gridwidth = 1;
-		this.add(labelRechercherID, gbc);
+//		this.add(labelRechercherID, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 1;
 		gbc.gridwidth = 2;
-		this.add(rechercherID, gbc);
+//		this.add(rechercherID, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 4;
 		gbc.gridwidth = 2;
-		this.add(labelRechercherType, gbc);
+		//this.add(labelRechercherType, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 6;
 		gbc.gridwidth = 2;
-		this.add(rechercherType, gbc);
+		//this.add(rechercherType, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 8;
 		gbc.gridwidth = 2;
-		this.add(labelRechercherEtat, gbc);
+		//this.add(labelRechercherEtat, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 10;
 		gbc.gridwidth = 2;
-		this.add(rechercherEtat, gbc);
+//		this.add(rechercherEtat, gbc);
 		// ---------------------------------------------
 		gbc.gridx = 0;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -483,7 +483,7 @@ public class PurchaseGUI extends JLabel {
 				content = content + "Price:  " + product.getPrixEuro() + devise + "\n";
 				content = content + "Add date:  " + product.getDateOfAdd() + " par " + product.getAdder() + "\n";
 				if (product.getState().compareTo("Borrowed") == 0)
-					content = content + "Status:  " + product.getState() + " from " + product.getBorrower() + "\n";
+					content = content + "Status:  " + product.getState() + " by " + product.getBorrower() + "\n";
 				else
 					content = content + "Status:  " + product.getState() + "\n\n";
 				content = content + "Borrow Informations:\n";
@@ -511,7 +511,7 @@ public class PurchaseGUI extends JLabel {
 
 	}
 
-	// Check / Uncheck to add / remove product from basket
+	// Check / Uncheck to add / remove product by basket
 	class ButtonListener_Check implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -544,7 +544,7 @@ public class PurchaseGUI extends JLabel {
 			infoProduct.setText("");
 			String content = new String("MESSAGE:  ");
 			try {
-				// List of products from the basket
+				// List of products by the basket
 				LinkedList<IProduct> listProductsBuyable = new LinkedList<IProduct>();
 				int i;
 				for (i = 0; i < listProductsBuyable.size(); i++) {

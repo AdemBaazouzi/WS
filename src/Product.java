@@ -116,16 +116,16 @@ public class Product extends UnicastRemoteObject implements IProduct {
 				this.changeState("Borrowed");
 				return "Borrow succes by " + name;
 			} else if (this.emprunteur.compareTo(name) == 0) {
-				return this.id + "Reservation failed, " + name + " is using the product";
+				return this.id + "  reservation failed, " + name + " is using the product";
 			} else {
 				for (i = 0; i < this.listeAttEnseignant.size(); i++) {
 					if (this.listeAttEnseignant.get(i).compareTo(name) == 0) {
-						return "Reservation failed, " + name + " is in the waiting list";
+						return "  reservation failed, " + name + " is in the waiting list";
 					}
 				}
 
 				this.listeAttEnseignant.add(name);
-				return "Reservation Success, " + name + " has been added to waiting list";
+				return " Reservation Success, " + name + " has been added to waiting list";
 			}
 
 		} else { // If the user is a student
@@ -137,16 +137,16 @@ public class Product extends UnicastRemoteObject implements IProduct {
 				this.changeState("Borrowed");
 				return "Borrow succes by " + name;
 			} else if (this.emprunteur.compareTo(name) == 0) {
-				return this.id + "Reservation failed, " + name + " is using the product";
+				return this.id + "  reservation failed, " + name + " is using the product";
 			} else {
 				for (i = 0; i < this.listeAttEtudiant.size(); i++) {
 					if (this.listeAttEtudiant.get(i).compareTo(name) == 0) {
-						return "Reservation failed, " + name + " is in the waiting list";
+						return "  reservation failed, " + name + " is in the waiting list";
 					}
 				}
 
 				this.listeAttEtudiant.add(name);
-				return "Reservation success, " + name + " is added to waiting list";
+				return " Reservation success, " + name + " is added to waiting list";
 			}
 
 		}
@@ -179,7 +179,7 @@ public class Product extends UnicastRemoteObject implements IProduct {
 		} else {
 			this.changeState("Available");
 			this.emprunteur = new String("");
-			return "Product " + this.getId() + " is returned, it's avaible now";
+			return "Product " + this.getId() + " is returned, it's available now";
 		}
 	}
 

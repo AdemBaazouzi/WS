@@ -64,7 +64,7 @@ public class LoanGUI extends JLabel {
 		titleType.setEditable(false);
 		titleType.setText("Type");
 		titleType.setHorizontalAlignment(JTextField.CENTER);
-		titleType.setPreferredSize(new Dimension(100, 25));
+		titleType.setPreferredSize(new Dimension(150, 25));
 		titleCommentaire = new JTextField();
 		titleCommentaire.setEditable(false);
 		titleCommentaire.setText("Comments");
@@ -81,14 +81,14 @@ public class LoanGUI extends JLabel {
 			k = i + 1;
 			ids[i] = new JTextField();
 			ids[i].setEditable(false);
-			ids[i].setPreferredSize(new Dimension(50, 25));
+			ids[i].setPreferredSize(new Dimension(60, 25));
 		}
 		types = new JTextField[10];
 		for (i = 0; i < 10; i++) {
 			k = i + 1;
 			types[i] = new JTextField();
 			types[i].setEditable(false);
-			types[i].setPreferredSize(new Dimension(100, 25));
+			types[i].setPreferredSize(new Dimension(150, 25));
 		}
 		commentaires = new JTextField[10];
 		for (i = 0; i < 10; i++) {
@@ -316,10 +316,10 @@ public class LoanGUI extends JLabel {
 				content = content + "--------------------------------------\n";
 				content = content + "TYPE: \t" + product.getType() + "\n";
 				content = content + "DESCRIPTION: \t" + product.getDescription() + "\n";
-				content = content + "Add date: \t" + product.getDateOfAdd() + " from " + product.getAdder()
+				content = content + "Add date: \t" + product.getDateOfAdd() + " by " + product.getAdder()
 						+ "\n";
 				if (product.getState().compareTo("Borrowed") == 0)
-					content = content + "STATUS: \t" + product.getState() + " from " + product.getBorrower() + "\n";
+					content = content + "STATUS: \t" + product.getState() + " by " + product.getBorrower() + "\n";
 				else
 					content = content + "STATUS: \t" + product.getState() + "\n\n";
 				content = content + "Borrow Information:\n";
