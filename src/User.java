@@ -5,7 +5,7 @@ public class User{
 	@SuppressWarnings({ "unused", "deprecation" })
 	public static void main(String[] args) {
 		try {
-			String codebase = "file:///D:/WorkspaceJava/DauphineSellServer/src/";
+			String codebase = "file:///Adem/WorkspaceJava/DauphineSellServer/src/";
 			System.setProperty("java.rmi.server.codebase", codebase);
 			System.setProperty("java.security.policy", "security.policy");
 			System.setSecurityManager(new RMISecurityManager());

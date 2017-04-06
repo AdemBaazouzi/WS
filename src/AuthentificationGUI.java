@@ -57,9 +57,11 @@ public class AuthentificationGUI extends JLabel {
 
 		utilisateurs = new LinkedList<Utilisateur>();
 
-		utilisateurs.add(new Utilisateur("mahdi", "mahdi", "Professor"));
+		utilisateurs.add(new Utilisateur("Mahdi", "Mahdi", "Professor"));
 		utilisateurs.add(new Utilisateur("anis", "anis", "Student"));
 		utilisateurs.add(new Utilisateur("adam", "adam", "Student"));
+		utilisateurs.add(new Utilisateur("viet", "viet", "Extern Client"));
+
 
 		userGroupeField = new JLabel("");
 		userGroupeField.setBounds(750, 100, 80, 25);
